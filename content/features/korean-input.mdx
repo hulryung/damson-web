@@ -1,0 +1,38 @@
+---
+title: Korean Input
+description: Damson fixes the macOS Korean IME first-jamo race so the first letter never disappears, compositions never tangle, and in-progress text renders in place.
+---
+
+# Korean Input
+
+If you write Korean in a terminal, you know the tax: you start typing and the
+first jamo vanishes, or a fast burst tangles the composition. Damson removes
+that tax entirely.
+
+## What works
+
+- **The first jamo never disappears.** Type as fast as you like — the opening
+  consonant always lands.
+- **Compositions never tangle.** Rapid input composes cleanly instead of
+  dropping or reordering syllables.
+- **In-progress text renders in place.** The syllable you're still composing
+  appears exactly where it belongs in the line, underlined as the IME marks it,
+  not floating in a detached box.
+
+## Why other terminals drop the first letter
+
+The macOS Korean IME has subtle timing races between when a key event arrives and
+when the input client is asked to commit or update marked text. Terminals that
+treat IME as an afterthought hit those races and lose the first jamo. Damson
+implements a proper `NSTextInputClient` adapter and resolved the races
+specifically — so the behavior is correct, not lucky.
+
+## Font fallback for Korean
+
+Korean rendering also leans on Damson's font cascade: when your primary monospace
+font lacks a glyph, Damson falls back through a Korean font chain so Hangul
+always renders, and double-width (East Asian Wide) cells are measured correctly
+so columns stay aligned.
+
+> The root-cause analysis and fix are written up in the repository's
+> `docs/KOREAN-IME.md`, and the fallback design in `docs/KOREAN-FONT-CASCADE.md`.

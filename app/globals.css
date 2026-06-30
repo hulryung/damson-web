@@ -1,0 +1,122 @@
+/* Damson docs — small brand touches on top of nextra-theme-docs */
+
+:root {
+  --damson-plum: #6d28d9;
+  --damson-plum-light: #a78bfa;
+}
+
+/* Hero block used on the landing page */
+.damson-hero {
+  margin: 1.5rem 0 2.5rem;
+  padding: 2.75rem 2rem 3rem;
+  border-radius: 1rem;
+  text-align: center;
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(124, 58, 237, 0.18), transparent 60%),
+    linear-gradient(180deg, rgba(124, 58, 237, 0.08), rgba(124, 58, 237, 0));
+  border: 1px solid rgba(124, 58, 237, 0.18);
+}
+
+.damson-hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0.25rem 0 0.75rem;
+  background: linear-gradient(90deg, #7c3aed, #c026d3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.damson-hero p.tagline {
+  font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+  max-width: 44rem;
+  margin: 0 auto 1.5rem;
+  color: var(--x-color-gray-600, #52525b);
+}
+
+.dark .damson-hero p.tagline {
+  color: #a1a1aa;
+}
+
+.damson-cta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.damson-cta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.6rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: transform 0.08s ease, box-shadow 0.2s ease;
+}
+
+.damson-cta a:hover {
+  transform: translateY(-1px);
+}
+
+.damson-cta a.primary {
+  background: linear-gradient(90deg, #7c3aed, #9333ea);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
+}
+
+.damson-cta a.secondary {
+  background: transparent;
+  color: var(--damson-plum);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+}
+
+.dark .damson-cta a.secondary {
+  color: var(--damson-plum-light);
+}
+
+.damson-hero small {
+  display: block;
+  margin-top: 1rem;
+  color: var(--x-color-gray-500, #71717a);
+  font-size: 0.85rem;
+}
+
+/* Feature card grid */
+.damson-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.damson-card {
+  padding: 1.1rem 1.2rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--x-color-gray-200, #e4e4e7);
+  background: var(--x-color-gray-50, #fafafa);
+}
+
+.dark .damson-card {
+  border-color: #27272a;
+  background: #18181b;
+}
+
+.damson-card h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.damson-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--x-color-gray-600, #52525b);
+}
+
+.dark .damson-card p {
+  color: #a1a1aa;
+}

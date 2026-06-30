@@ -1,0 +1,39 @@
+---
+title: GPU Rendering
+description: A Metal renderer draws every frame — truecolor, styled text, double-width CJK, color emoji with ZWJ sequences and flags, ligatures, and font fallback for missing glyphs.
+---
+
+# GPU Rendering
+
+Every frame Damson shows is drawn on the GPU by a Metal renderer. That's what
+keeps text crisp and scrolling fluid no matter how fast output streams in.
+
+## What the renderer handles
+
+- **Truecolor (24-bit).** Full RGB, not a 256-color approximation.
+- **Text styles.** Bold, italic, underline, strikethrough, and clickable
+  hyperlinks (OSC 8).
+- **Double-width CJK.** Wide characters take two cells and stay aligned.
+- **Color emoji.** Including ZWJ sequences (👨‍👩‍👧‍👦) and flags (🇰🇷).
+- **Ligatures.** Programming ligatures like `=>` rendering as ⇒, via CoreText
+  shaping.
+- **Font fallback.** Symbols your primary font lacks — like ④ — still render
+  through a fallback cascade instead of showing tofu boxes.
+
+## How it works
+
+CoreText shapes each run of text into glyphs; the glyphs are cached in a
+persistent GPU atlas and composited by Metal shaders onto a `CAMetalLayer`. Text
+is normalized (NFC) and East-Asian-Wide width is computed so the grid stays
+exact. Because glyph rasterization is cached and compositing happens on the GPU,
+redraw cost stays low even under heavy output — which is what makes the
+[smooth scrolling](/features/smooth-scrolling) possible.
+
+## Built for fast output streams
+
+If you run CLI AI coding agents that stream large bursts of text, the GPU
+renderer keeps frames steady where a CPU-bound terminal would stutter. Combined
+with rock-solid [split panes](/tabs-and-panes), that's why Damson holds up when
+you keep several agents running at once.
+
+> Design notes live in the repository's `docs/METAL-RENDERER-PLAN.md`.

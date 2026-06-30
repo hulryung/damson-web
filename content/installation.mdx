@@ -1,0 +1,122 @@
+---
+title: Installation
+description: Download and install Damson on macOS, or build it from source with Swift Package Manager.
+---
+
+import { Callout, Steps, Tabs } from 'nextra/components'
+
+# Installation
+
+Damson runs on **macOS 13 Ventura or later** (Apple Silicon or Intel). Most
+people should just grab the signed release; building from source is for
+contributors and the curious.
+
+## Requirements
+
+- macOS 13 Ventura or later
+- For building from source: Swift 5.9+ (Xcode toolchain) and Swift Package Manager
+
+## Install the release (recommended)
+
+<Steps>
+
+### Download the latest `.dmg`
+
+Grab the newest build from
+[GitHub Releases](https://github.com/hulryung/damson/releases/latest).
+
+### Drag Damson into Applications
+
+Open the `.dmg` and drop **Damson.app** into your `Applications` folder.
+
+### Launch it
+
+Open Damson from Launchpad or Spotlight. It's Developer ID signed and notarized
+by Apple, so Gatekeeper lets it through without a fuss.
+
+### Stay up to date automatically
+
+From then on the app keeps itself current with Sparkle. You can also trigger a
+check anytime from **Settings → Advanced → Check for Updates**.
+
+</Steps>
+
+<Callout type="info">
+  Damson is in active beta and ships frequent updates. Automatic updates mean
+  you'll always be on the latest polish without re-downloading anything.
+</Callout>
+
+## (Optional) Install the `damson-cli`
+
+Damson ships a small command-line client, `damson-cli`, that drives a running
+instance — handy for scripts and AI orchestration. It lives inside the app
+bundle; symlink it onto your `PATH`:
+
+```bash
+ln -s "/Applications/Damson.app/Contents/Resources/damson-cli" /usr/local/bin/damson-cli
+damson-cli --help
+```
+
+See [damson-cli](/cli) for the full command reference.
+
+## Build from source
+
+The engine library has **zero external dependencies** (Metal, CoreText, AppKit
+only); the app pulls in Sparkle for auto-updates.
+
+<Steps>
+
+### Clone the repository
+
+```bash
+git clone https://github.com/hulryung/damson.git
+cd damson
+```
+
+### Run a development build
+
+The fastest way to try your changes:
+
+```bash
+swift run damson
+```
+
+### Or build a real `.app` bundle
+
+```bash
+./scripts/build-app.sh
+# produces dist/Damson.app
+```
+
+Useful environment variables: `MARKETING_VERSION`, `BUILD_NUMBER`, `CLEAN=1`.
+
+### Install a local build for dogfooding
+
+```bash
+./scripts/install-local.sh
+```
+
+This builds a release `.app`, ad-hoc code-signs it (this Mac only), installs it
+to `/Applications`, strips the quarantine flag, and launches it.
+
+<Callout type="warning">
+  An ad-hoc signed build can't auto-update via Sparkle and isn't suitable for
+  distribution. For a real signed/notarized build, see `docs/RELEASE.md` in the
+  repository.
+</Callout>
+
+</Steps>
+
+### Run the tests
+
+```bash
+swift test
+```
+
+The repository carries a large test suite covering the VT parser, terminal grid,
+control IPC, and the orchestration engine.
+
+## Next steps
+
+Now that Damson is running, head to [Getting Started](/getting-started) for the
+key shortcuts and a quick tour.

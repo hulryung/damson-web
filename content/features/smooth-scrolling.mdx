@@ -1,0 +1,38 @@
+---
+title: Smooth Scrolling
+description: ProMotion 120 Hz, per-pixel scrolling with momentum and rubber-banding — scrollback that feels like scrolling a web page in Safari.
+---
+
+# Smooth Scrolling
+
+Scrolling a terminal shouldn't feel worse than scrolling a web page. On Damson it
+doesn't.
+
+## What you feel
+
+- **ProMotion 120 Hz.** On displays that support it, Damson draws at up to 120
+  frames per second, synced to the panel via `CVDisplayLink`.
+- **Per-pixel, sub-line scrolling.** Content moves by the pixel, not by whole
+  rows, so a flick or a two-finger drag tracks your fingers exactly.
+- **Momentum and rubber-banding.** Flick and the scrollback glides to a stop;
+  hit the top or bottom and it springs back — the same physics as Safari.
+
+The headline goal is simple: **the same feel as scrolling a web page in Safari.**
+
+## Why cross-platform terminals can't match it
+
+Momentum scrolling, rubber-banding, and ProMotion vsync are macOS-specific
+behaviors. A cross-platform renderer built on the lowest common denominator of
+Linux, Windows, and macOS either reimplements them approximately or skips them.
+Damson talks to AppKit, QuartzCore, and CoreVideo directly, so it inherits the
+real thing instead of an approximation.
+
+## Under the hood
+
+The renderer is GPU-driven (see [GPU Rendering](/features/gpu-rendering)) and
+paints each frame on a `CAMetalLayer` synchronized to the display's refresh via
+`CVDisplayLink`. Terminal I/O runs off the main thread through a lock-free ring
+buffer, so even a flood of output never stalls the scroll.
+
+> Curious about the exact recipe? The repository's `docs/SMOOTH-SCROLL.md`
+> documents the concrete approach to guaranteed-smooth scrolling.

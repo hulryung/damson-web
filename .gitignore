@@ -1,0 +1,9 @@
+/node_modules
+/.next
+/out
+/build
+/.vercel
+/public/_pagefind
+.DS_Store
+*.log
+.env*.local

@@ -1,0 +1,37 @@
+---
+title: What Makes It Different
+description: The four things Damson does that cross-platform terminals can't — Safari-smooth scrolling, flawless Korean input, full GPU rendering, and the fundamentals of an all-day tool.
+---
+
+import { Cards } from 'nextra/components'
+
+# What Makes It Different
+
+Damson is written in Swift with Metal and CoreText, targeting exactly one
+platform. That single decision is what lets it do the things below — none of
+which require a setting to turn on. They're just how the app behaves.
+
+## The short version
+
+- **Scrolling feels like a Mac.** ProMotion 120 Hz, per-pixel scrolling,
+  momentum and rubber-banding — the same feel as scrolling a web page in Safari.
+- **Korean input just works.** Type as fast as you like; the first jamo never
+  disappears and compositions never tangle. We tracked down the subtle timing
+  races in the macOS Korean IME and fixed them, and in-progress compositions
+  render right where they belong.
+- **The GPU draws everything.** The Metal renderer handles truecolor,
+  bold/underline/strikethrough/hyperlinks, double-width CJK, and color emoji
+  (including ZWJ sequences and flags). Symbols your font lacks — like ④ — still
+  show up through font fallback.
+- **The fundamentals of an all-day tool.** Tabs and split panes (split,
+  rearrange, switch), a settings UI, session restore that brings everything back
+  when you relaunch, Sparkle auto-updates, and a `damson-cli` for scripted
+  control.
+
+## Dig into the details
+
+<Cards>
+  <Cards.Card title="Smooth Scrolling" href="/features/smooth-scrolling" arrow />
+  <Cards.Card title="Korean Input" href="/features/korean-input" arrow />
+  <Cards.Card title="GPU Rendering" href="/features/gpu-rendering" arrow />
+</Cards>

@@ -1,0 +1,63 @@
+---
+title: Embedding the Engine
+description: Damson's terminal engine ships as a Swift Package, DamsonTerminal — the same VT parser, grid, and Metal renderer the app uses, available as a library for your own macOS app.
+---
+
+import { Callout } from 'nextra/components'
+
+# Embedding the Engine
+
+Damson's engine isn't locked inside the app. It ships as a Swift Package,
+**`DamsonTerminal`** — the same VT parser, terminal grid, and Metal renderer the
+app uses — so you can drop a real terminal view into your own macOS application.
+
+## What you get
+
+- A dependency-free engine library (Metal, MetalKit, CoreText, AppKit,
+  QuartzCore, CoreVideo only — no third-party packages).
+- The same GPU rendering, smooth scrolling, and Korean IME handling that make the
+  app what it is.
+- A small, plain-Swift public API — roughly fifteen types and methods.
+
+## The shape of the API
+
+The public surface centers on a configuration object and a session you embed in a
+SwiftUI / AppKit view:
+
+- **`DamsonConfig`** — font, theme, scrollback, and other startup options.
+- **`DamsonSession`** — a live terminal: `write(...)`, `resize(...)`, access to
+  scrollback, and `find(...)`.
+- **Callbacks** — hooks like `onURLClick`, `onBell`, and `onExit` to integrate
+  the terminal with the rest of your app.
+- **A terminal view** — an `NSViewRepresentable`-friendly surface you place in
+  your window.
+
+```swift
+import DamsonTerminal
+
+// Configure and start a session, then host its view in your window.
+let config = DamsonConfig(/* font, theme, scrollback, … */)
+let session = DamsonSession(config: config)
+session.onURLClick = { url in NSWorkspace.shared.open(url) }
+// Add the session's terminal view to your SwiftUI/AppKit hierarchy.
+```
+
+<Callout type="info">
+  The snippet above is illustrative. For the exact, current type and method
+  signatures, see `docs/ARCHITECTURE.md` in the repository, which documents the
+  embedding API surface in full.
+</Callout>
+
+## Add it to your project
+
+`DamsonTerminal` is a SwiftPM product in the
+[damson repository](https://github.com/hulryung/damson). Add the package as a
+dependency and import `DamsonTerminal` — the library targets **macOS 13+**, the
+same as the app.
+
+## Why embed it
+
+If you're building a macOS app that needs an embedded terminal — an IDE, a
+device console, a teaching tool — you get Damson's rendering quality and Korean
+input correctness without reimplementing a VT engine. It's also the foundation
+the [Orchard](/orchard) multi-agent app is built on.

@@ -1,0 +1,71 @@
+---
+title: Getting Started
+description: A quick tour of Damson — opening tabs, splitting panes, applying preset layouts, and the shortcuts you'll use every day.
+---
+
+import { Callout } from 'nextra/components'
+
+# Getting Started
+
+This is the five-minute tour. Once Damson is [installed](/installation), open it
+and try the workflows below — they cover the controls you'll reach for every day.
+
+## The shortcuts you'll use most
+
+| Action | Shortcut |
+| --- | --- |
+| New tab | `⌘T` |
+| Close tab | `⌘W` |
+| Next / previous tab | `⌘⇧]` / `⌘⇧[` |
+| Split pane horizontally | `⌘D` |
+| Split pane vertically | `⌘⇧D` |
+| Focus pane (left/right/up/down) | `⌘⌥` + arrow |
+| Swap pane (left/right/up/down) | `⌘⇧` + arrow |
+| Apply preset layout 1–7 | `⌘⌃1` … `⌘⌃7` |
+| Find in scrollback | `⌘F` |
+| Jump to previous / next prompt | `⌘↑` / `⌘↓` |
+| Copy last command output | `⌘⇧C` |
+
+<Callout type="info">
+  Every shortcut is remappable. Open **Settings** to rebind keys to taste.
+</Callout>
+
+## Split your first workspace
+
+1. Press `⌘D` to split the current pane into two side by side.
+2. Press `⌘⇧D` to split one of them top-and-bottom.
+3. Move focus with `⌘⌥` + an arrow key; rearrange panes with `⌘⇧` + an arrow key.
+
+Panes form a tree, so you can nest splits as deeply as you like and Damson keeps
+the geometry sensible. When you've found a layout you like, you don't have to
+rebuild it by hand next time — see below.
+
+## Apply a layout in one keystroke
+
+Instead of dragging splits around, press `⌘⌃1` to drop into the headline
+**Columns 20 / 60 / 20** layout instantly. There are seven presets on
+`⌘⌃1`–`⌘⌃7` — read [Preset Layouts](/preset-layouts) for the full set.
+
+## Navigate output like a document
+
+Damson understands your shell's prompt marks (OSC 133), so you can move through
+a session by command rather than by line:
+
+- `⌘↑` / `⌘↓` jump between prompts.
+- `⌘⇧C` copies the output of the last command.
+- `⌘F` searches the scrollback with a live overlay.
+- **⌘-click** any file path in the output to open it (with optional `:line`
+  jump). See [Shell Integration](/shell-integration).
+
+## Make it yours
+
+Open **Settings** to set your font, theme, cursor, background opacity and blur,
+ligatures, animations, scrollback size, and more. The full list is in
+[Settings](/settings).
+
+## Where to next
+
+- [What Makes It Different](/features) — the rendering, scrolling, and IME work
+- [Tabs & Panes](/tabs-and-panes) — the windowing model in depth
+- [damson-cli](/cli) — drive Damson from scripts
+- [Orchard](/orchard) — run multiple CLI agents in parallel on the same engine

@@ -1,0 +1,58 @@
+---
+title: Tabs & Panes
+description: Damson's windowing model — tabs with animated transitions, a tree of split panes you can split, focus, swap, and rearrange, plus session restore.
+---
+
+import { Callout } from 'nextra/components'
+
+# Tabs & Panes
+
+Damson gives you tabs and a tree of split panes, with native-feeling animation
+and full keyboard control.
+
+## Tabs
+
+| Action | Shortcut |
+| --- | --- |
+| New tab | `⌘T` |
+| Close tab | `⌘W` |
+| Next tab | `⌘⇧]` |
+| Previous tab | `⌘⇧[` |
+
+Tab switches animate with a configurable transition (slide, or a spring settle),
+and the tab bar style is yours to set in [Settings](/settings) — including a
+transparent tab bar.
+
+## Split panes
+
+Panes form a **tree**: every split divides a pane into two, and you can nest
+splits as deeply as you need.
+
+| Action | Shortcut |
+| --- | --- |
+| Split horizontally | `⌘D` |
+| Split vertically | `⌘⇧D` |
+| Focus pane left / right / up / down | `⌘⌥` + arrow |
+| Swap pane left / right / up / down | `⌘⇧` + arrow |
+
+- **Focus** moves your cursor between panes without disturbing the layout.
+- **Swap** exchanges two panes' positions, so you can rearrange a workspace
+  without tearing it down and rebuilding it.
+
+<Callout type="info">
+  Tired of dragging splits into the same shape every time? Apply a whole layout
+  in one keystroke with [Preset Layouts](/preset-layouts).
+</Callout>
+
+## Active-pane indicator
+
+When you're working across several panes it's easy to lose track of which one has
+focus. Damson can highlight the active pane — for example by dimming the inactive
+ones — and optionally let focus follow the mouse. Both are configurable in
+[Settings](/settings).
+
+## Session restore
+
+Quit and relaunch and Damson brings your workspace back: tabs and panes return to
+where they were, and — if you enable it — so does the scrollback. You pick up
+exactly where you left off instead of rebuilding your layout each morning.

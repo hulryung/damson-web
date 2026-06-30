@@ -1,0 +1,51 @@
+---
+title: damson-cli
+description: Drive a running Damson instance from scripts and AI orchestration with the damson-cli command-line client.
+---
+
+import { Callout } from 'nextra/components'
+
+# damson-cli
+
+`damson-cli` is a small command-line client that talks to a running Damson
+instance over a local socket. It's there for scripted control — automating your
+workspace, or letting an AI agent drive the terminal.
+
+## Install
+
+The binary ships inside the app bundle. Symlink it onto your `PATH`:
+
+```bash
+ln -s "/Applications/Damson.app/Contents/Resources/damson-cli" /usr/local/bin/damson-cli
+```
+
+Confirm it's wired up:
+
+```bash
+damson-cli --help
+```
+
+<Callout type="info">
+  `damson-cli` controls an **already-running** Damson app by sending it commands
+  over IPC. Start Damson first, then drive it from the CLI.
+</Callout>
+
+## What it's for
+
+- **Scripting your workspace** — open tabs and panes, apply layouts, and send
+  input as part of a shell script.
+- **AI orchestration** — let a coding agent open panes and run commands in a real
+  terminal it can see and control.
+
+## Related: the control library
+
+Under the hood, `damson-cli` speaks to Damson through a small IPC wire library
+(`DamsonControl`) that the app exposes. If you're building deeper automation, the
+same channel is what the orchestration engine uses to drive sessions — see
+[Orchard](/orchard), the multi-agent app built on it.
+
+<Callout type="warning">
+  Damson is in active beta; the exact `damson-cli` subcommands and flags are
+  evolving. Run `damson-cli --help` against your installed build for the
+  authoritative, up-to-date command list.
+</Callout>

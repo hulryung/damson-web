@@ -1,0 +1,47 @@
+---
+title: Preset Layouts
+description: Drop into a complete multi-pane workspace with one keystroke — seven preset layouts on ⌘⌃1 through ⌘⌃7, no manual dragging.
+---
+
+import { Callout } from 'nextra/components'
+
+# Preset Layouts
+
+A good pane layout is worth recreating every day — but dragging splits into
+place every time is tedious. Damson's **preset layouts** apply a complete
+multi-pane arrangement in a single action, no manual dragging.
+
+## The seven presets
+
+Each preset has a default shortcut on `⌘⌃1` through `⌘⌃7`:
+
+| Shortcut | Layout | Shape |
+| --- | --- | --- |
+| `⌘⌃1` | **Columns 20 / 60 / 20** | Three columns, wide center — the headline layout |
+| `⌘⌃2` | **Two Columns** | 50 / 50 side by side |
+| `⌘⌃3` | **Three Columns** | 33 / 33 / 33 |
+| `⌘⌃4` | **Two Rows** | Stacked top and bottom |
+| `⌘⌃5` | **2 × 2 Grid** | Four equal panes |
+| `⌘⌃6` | **Main + Right** | 70 / 30, large main pane |
+| `⌘⌃7` | **Main + Stacked Right** | Big main pane, two stacked on the right |
+
+## Why it matters
+
+The `Columns 20 / 60 / 20` layout is the headline example: a focused 60%-wide
+working pane in the center with two 20% side panes for logs, a watcher, or a
+chat with a coding agent. Press `⌘⌃1` and you're there — no measuring, no
+dragging.
+
+<Callout type="info">
+  Preset layouts pair naturally with [session restore](/tabs-and-panes#session-restore):
+  set up your workspace once, and Damson keeps bringing it back. The presets are
+  there for when you want a fresh arrangement instantly.
+</Callout>
+
+## Running agents in panes
+
+If you keep CLI AI coding agents running, a preset like **Main + Stacked Right**
+(`⌘⌃7`) gives you a primary working pane with a column of agents alongside it.
+Combined with the [GPU renderer](/features/gpu-rendering) holding steady under
+fast output streams, it's a comfortable cockpit for multi-agent work — and if
+you want that taken further, see [Orchard](/orchard).

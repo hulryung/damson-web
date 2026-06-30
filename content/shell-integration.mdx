@@ -1,0 +1,60 @@
+---
+title: Shell Integration
+description: Jump between prompts, copy the last command's output, search scrollback, click URLs and file paths — Damson understands the structure of your session via OSC 133.
+---
+
+import { Callout } from 'nextra/components'
+
+# Shell Integration
+
+Damson treats your session as structured output, not just a wall of text. With
+shell prompt marks (OSC 133) it knows where each command begins and ends, which
+unlocks navigation that works by command instead of by line.
+
+## Navigate by prompt
+
+| Action | Shortcut |
+| --- | --- |
+| Jump to previous prompt | `⌘↑` |
+| Jump to next prompt | `⌘↓` |
+| Copy last command output | `⌘⇧C` |
+
+Jump straight to where your last build started, or grab the entire output of the
+previous command without selecting it by hand.
+
+## Find in scrollback
+
+Press `⌘F` to open a find overlay and search your scrollback live, stepping
+through matches with Find Next / Find Previous.
+
+## Clickable URLs
+
+Damson detects URLs in your output — including URLs that **wrap across multiple
+rows** — and makes them clickable, without gluing the following line onto a
+URL that happens to end mid-line.
+
+## ⌘-click file paths
+
+⌘-click a file path in the terminal output to open it. Damson recognizes a wide
+range of forms:
+
+- Relative paths like `Sources/App.swift`
+- Absolute paths like `/usr/local/bin/tool`
+- Paths with a line number like `file.swift:42` (and it jumps to the line)
+- Tool-style references such as Claude Code's `⏺ Update(docs/DESIGN.md)`
+
+Paths are resolved against the session's working directory, and **only real,
+existing files are made clickable** — so you won't chase dead links.
+
+<Callout type="info">
+  These features rely on your shell emitting OSC 133 prompt marks. Most modern
+  shell-integration snippets (for zsh, bash, fish) set them up; once they're in
+  place, prompt navigation and "copy last output" light up automatically.
+</Callout>
+
+## tmux control mode
+
+Damson can speak tmux **control mode**: a real tmux session is driven through
+Damson's native tabs and panes, so multiplexed sessions feel like first-class
+Damson windows rather than text inside a terminal. See `docs/TMUX-INTEGRATION.md`
+in the repository for the details.

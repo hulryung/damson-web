@@ -1,0 +1,65 @@
+---
+title: Orchard
+description: Orchard is a standalone macOS app built on Damson's engine that runs multiple CLI coding agents in parallel — each in its own git worktree — and presents them as a tabs-and-grid cockpit.
+---
+
+import { Callout } from 'nextra/components'
+
+# Orchard
+
+**Orchard** is a separate macOS app that lives in the same repository and is
+built on Damson's terminal engine. Where Damson is the terminal, Orchard is a
+**cockpit for running multiple CLI coding agents in parallel.**
+
+<Callout type="info">
+  Damson and Orchard are two apps sharing one engine. Orchard imports the same
+  `DamsonTerminal` library [you can embed yourself](/embedding), plus a control
+  layer and an orchestration engine.
+</Callout>
+
+## What it does
+
+Orchard takes a queue of tasks and runs agents against them concurrently:
+
+- For each task it **creates a git worktree** off a pinned base commit, so every
+  agent works in isolation without stepping on the others.
+- It spawns an agent in that worktree and **dispatches new work as agents go
+  idle** (default concurrency: three at a time).
+- Each agent appears as a terminal **tab or grid pane** in a workspace UI, so you
+  can watch them all at once or focus one.
+
+## Pluggable agent engines
+
+Agents are pluggable. Out of the box Orchard ships:
+
+- **Claude Code** — a first-class engine that resolves the `claude` binary,
+  clears the "trust this folder" startup prompt automatically, and fingerprints
+  the TUI's working vs. idle states so the orchestrator knows when an agent is
+  free for the next task.
+- **Shell Command** — a generic engine to run any command-line tool as an agent.
+
+## The workspace UI
+
+- A **sidebar** with your workspace tree
+- **Tabs and a grid** of live agent sessions
+- Menu actions: New Workspace (`⌘N`), New Session as Tab (`⌘T`), New Session
+  Beside / grid (`⌘D`), Add Mission (`⌘⇧T`)
+
+## orchard-cli
+
+Like Damson, Orchard ships a companion CLI — `orchard-cli` — to drive a running
+instance from scripts or from an outer layer of AI orchestration.
+
+## How it relates to Damson
+
+Damson's own audience includes "people running CLI AI coding agents" across
+several panes. Orchard is the dedicated tool for exactly that: it reuses
+Damson's GPU renderer (so fast agent output stays smooth) and its rock-solid
+panes, then adds task queuing, git-worktree isolation, and agent lifecycle
+management on top.
+
+<Callout type="info">
+  Orchard is built and run from the same
+  [damson repository](https://github.com/hulryung/damson) — it's its own
+  executable target with its own app bundle and icon.
+</Callout>
