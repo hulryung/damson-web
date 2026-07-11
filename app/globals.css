@@ -120,3 +120,138 @@
 .dark .damson-card p {
   color: #a1a1aa;
 }
+
+/* ===== Landing page (full-width index) ===== */
+.damson-landing {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+}
+.damson-landing section { margin-top: 4.5rem; }
+.damson-landing .damson-hero { margin-top: 4rem; text-align: center; }
+
+.damson-badge {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--damson-plum) 35%, transparent);
+  color: var(--damson-plum);
+  background: color-mix(in srgb, var(--damson-plum) 7%, transparent);
+  margin-bottom: 1.4rem;
+}
+.dark .damson-badge {
+  color: var(--damson-plum-light);
+  border-color: color-mix(in srgb, var(--damson-plum-light) 40%, transparent);
+  background: color-mix(in srgb, var(--damson-plum-light) 10%, transparent);
+}
+
+.damson-landing .damson-hero h1 {
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0 auto;
+  max-width: 46rem;
+}
+.damson-landing .damson-hero h1 em {
+  font-style: normal;
+  background: linear-gradient(120deg, var(--damson-plum), var(--damson-plum-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.damson-landing .damson-hero p.tagline {
+  max-width: 42rem;
+  margin: 1.4rem auto 0;
+  font-size: 1.15rem;
+}
+.damson-landing .damson-cta { justify-content: center; margin-top: 2rem; }
+.damson-landing .damson-hero small { display: block; margin-top: 1.1rem; }
+
+/* Terminal mockup */
+.damson-termwrap { max-width: 46rem; margin-left: auto; margin-right: auto; }
+.damson-term {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(120, 90, 200, 0.25);
+  box-shadow: 0 24px 60px -24px rgba(60, 20, 120, 0.45);
+  background: #17131f;
+}
+.damson-term-bar {
+  display: flex; align-items: center; gap: 7px;
+  padding: 10px 14px;
+  background: #221c2e;
+}
+.damson-term-bar .tl { width: 12px; height: 12px; border-radius: 50%; }
+.damson-term-bar .tl.red { background: #ff5f57; }
+.damson-term-bar .tl.yellow { background: #febc2e; }
+.damson-term-bar .tl.green { background: #28c840; }
+.damson-term-title {
+  flex: 1; text-align: center;
+  font-size: 0.78rem; color: #9a8fb8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.damson-term-body {
+  padding: 16px 18px 20px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.86rem;
+  line-height: 1.75;
+  color: #e6e1f0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.damson-term-body .p { color: #a78bfa; font-weight: 600; }
+.damson-term-body .g { color: #4ade80; font-weight: 600; }
+.damson-term-body .d { color: #8b839e; }
+.damson-term-body .cursor { color: #a78bfa; animation: damson-blink 1.1s steps(1) infinite; }
+@keyframes damson-blink { 50% { opacity: 0; } }
+.damson-term-caption {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-top: 1.1rem;
+}
+.dark .damson-term-caption { color: #9ca3af; }
+
+/* Sections */
+.damson-landing h2 {
+  font-size: 1.7rem;
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-bottom: 1.8rem;
+}
+.damson-landing .damson-grid { margin-top: 0; }
+a.damson-card { display: block; text-decoration: none; color: inherit; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+a.damson-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -12px rgba(109, 40, 217, 0.35);
+}
+
+.damson-why { max-width: 44rem; margin-left: auto; margin-right: auto; }
+.damson-why p { margin-top: 1rem; line-height: 1.75; color: inherit; }
+
+.damson-final {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--damson-plum) 6%, transparent);
+  border: 1px solid color-mix(in srgb, var(--damson-plum) 18%, transparent);
+}
+.dark .damson-final {
+  background: color-mix(in srgb, var(--damson-plum-light) 8%, transparent);
+  border-color: color-mix(in srgb, var(--damson-plum-light) 22%, transparent);
+}
+.damson-final h2 { margin-bottom: 0.4rem; }
+.damson-final small { display: block; margin-top: 1.1rem; color: #6b7280; }
+.dark .damson-final small { color: #9ca3af; }
+
+@media (max-width: 640px) {
+  .damson-landing section { margin-top: 3rem; }
+  .damson-term-body { font-size: 0.74rem; }
+}
+
+/* The _meta theme.sidebar flag is inert in nextra-theme-docs 4.6.1, so scope the
+   landing's sidebar-free layout via :has() — only pages containing .damson-landing. */
+body:has(.damson-landing) aside.nextra-sidebar { display: none; }

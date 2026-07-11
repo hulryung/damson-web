@@ -1,5 +1,15 @@
 export default {
-  index: 'Introduction',
+  index: {
+    title: 'Home',
+    theme: {
+      layout: 'full',
+      sidebar: false,
+      toc: false,
+      breadcrumb: false,
+      pagination: false,
+      timestamp: false
+    }
+  },
   installation: 'Installation',
   'getting-started': 'Getting Started',
   '-- features': {
