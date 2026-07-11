@@ -11,6 +11,7 @@ export default {
   'preset-layouts': 'Preset Layouts',
   'shell-integration': 'Shell Integration',
   settings: 'Settings',
+  'glyph-width': 'Symbol & CJK Width',
   '-- advanced': {
     type: 'separator',
     title: 'Advanced'

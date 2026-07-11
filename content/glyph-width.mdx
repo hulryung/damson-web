@@ -1,0 +1,109 @@
+---
+title: Symbol & CJK Glyph Width
+description: How Damson decides how wide a glyph is drawn — double-width Nerd icons, full-width symbol designs like circled numbers, and the ambiguous-width setting — and when each affects table alignment.
+---
+
+# Symbol & CJK Glyph Width
+
+Terminals place every character on a fixed cell grid, but fonts don't always
+agree with the grid about how wide a glyph *should* be. Korean and Japanese
+coding fonts (D2Coding, for example) design symbols like circled numbers
+(①…⑳), circled letters (Ⓐⓐ), ※, ★ and arrows at **full width** — twice the
+width of a normal character — while the Unicode width rules that terminals and
+apps follow allocate them **one cell**.
+
+Damson has three mechanisms that deal with this. They sound similar but work at
+different layers, and only one of them can affect app layout.
+
+| | Target glyphs | Grid cells | How it draws | Can break tables? |
+|---|---|---|---|---|
+| **Double-width icons** (default on) | Nerd Font icons (PUA) | 1 | Natural size, centered, spills both sides | No |
+| **Full-width designs at natural size** (automatic) | ①★※ and other ambiguous symbols | 1 | Natural size when the right neighbor is blank, shrunk to fit otherwise | No |
+| **Ambiguous-width symbols as double width** (default off) | Same ambiguous symbols | **2** | Always natural size | **Yes** |
+
+## Double-width icons
+
+*Settings ▸ Appearance ▸ Double-width icons — default **on***
+
+Non-Mono Nerd Font variants ("JetBrainsMono Nerd Font" as opposed to
+"…Nerd Font **Mono**") design their icons larger than one cell. With this
+setting on, Damson renders those icons at natural size on a two-cell canvas,
+centered on their one-cell slot — the ink simply overflows into the neighboring
+cells visually.
+
+This is **rendering only**. The grid still allocates one cell, so cursor math,
+column alignment and TUI layout are untouched. The only trade-off is that a big
+icon may visually overlap text immediately next to it. Turn it off to shrink
+oversized icons into their cell instead.
+
+Powerline separators are always fitted edge-to-edge regardless of this setting,
+so segmented prompts never show seams.
+
+## Full-width symbol designs (automatic)
+
+Some symbols are classified *East Asian Width: Ambiguous* by Unicode — circled
+numbers and letters, ※, ★, arrows, geometric shapes. Terminals allocate them
+one cell (that's what `wcwidth` says, and what apps assume), but CJK fonts
+often draw them as full-width glyphs whose ink is ~1.7 cells wide.
+
+Damson handles these automatically, with no setting:
+
+- If the cell to the **right is blank**, the glyph renders at its designed
+  natural size, anchored at its own cell's left edge — `① item` shows a
+  full-size circled one.
+- If the right cell is **occupied** (`①②③` in a run), that instance is
+  uniformly shrunk to fit its cell, so glyphs never overlap.
+
+Either way the grid stays one cell, so nothing can misalign. Fonts whose
+symbol designs already fit one cell (most Latin coding fonts) are unaffected.
+
+## Ambiguous-width symbols as double width
+
+*Settings ▸ Appearance ▸ Ambiguous-width symbols as double width — default **off***
+
+If you read a lot of Korean or Japanese text, shrunk circled numbers in
+consecutive runs may bother you. This setting — the same trade-off iTerm2 and
+WezTerm expose — allocates those symbols **two real grid cells**, so they render
+at their designed size everywhere, runs included.
+
+Because this changes the layout contract, it can disagree with apps:
+
+- Apps compute display width themselves (via `wcwidth` or `string-width`), and
+  they count ambiguous symbols as **one** column.
+- With the setting on, a table row whose *content* includes ① renders one cell
+  wider than the app calculated — the right border of that row drifts and the
+  vertical line zigzags.
+- Line editing can look off too: type ① at a prompt and the shell believes the
+  cursor advanced one column while the screen shows two.
+
+Box-drawing characters (`─ │ ┌ ┐`) and prose punctuation are deliberately
+excluded, so TUI frames themselves never change width — only content containing
+those symbols shifts.
+
+**Recommendations**
+
+- Leave it **off** if you live in TUIs that draw tables (the automatic
+  natural-size handling above is a good middle ground).
+- Turn it **on** if you mostly read Korean/Japanese documents and logs and want
+  전각 symbols at their designed size.
+- In Vim you can match the app to the terminal with `set ambiwidth=double`;
+  Emacs has similar tables. Node-based TUIs generally can't be configured, so
+  prefer **off** when working with them.
+
+Toggling applies to newly written output; existing rows re-render as apps
+redraw.
+
+## Fallback fonts and who draws what
+
+Which *face* paints a glyph is independent of how many cells it gets. Damson
+resolves glyphs in a fixed order:
+
+1. **Your font** — everything it covers.
+2. **Pinned CJK fallback** (D2CodingLigature Nerd Font Mono when installed) —
+   Hangul, CJK and symbols your font lacks, deterministic across machines.
+3. **Apple Color Emoji** — emoji only.
+4. **System fallback** — whatever CoreText recommends, shrunk to fit if needed.
+
+So a font without circled-number glyphs still shows them (via tier 2), and if
+that fallback designs them full-width they follow all the rules above. Without
+any fallback you would see tofu (□), not a narrow glyph.
