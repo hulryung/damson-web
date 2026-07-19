@@ -46,9 +46,7 @@ const navbar = (
     projectLink="https://github.com/hulryung/damson"
   >
     <a
-      href="https://github.com/hulryung/damson/releases/latest"
-      target="_blank"
-      rel="noreferrer"
+      href="https://github.com/hulryung/damson/releases/latest/download/Damson.dmg"
       style={{
         fontWeight: 600,
         padding: '0.35rem 0.85rem',

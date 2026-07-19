@@ -35,7 +35,7 @@ export default {
   },
   download: {
     title: 'Download ↗',
-    href: 'https://github.com/hulryung/damson/releases/latest'
+    href: 'https://github.com/hulryung/damson/releases/latest/download/Damson.dmg'
   },
   github: {
     title: 'GitHub ↗',
