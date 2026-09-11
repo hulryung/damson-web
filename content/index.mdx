@@ -10,14 +10,10 @@ import { Cards } from 'nextra/components'
 <section className="damson-hero">
   <span className="damson-badge">Native Swift · Metal renderer · macOS 13+</span>
   <h1>The terminal built <em>only</em> for&nbsp;macOS</h1>
-  <p className="tagline">
-    No cross-platform compromises. Damson uses ProMotion 120&nbsp;Hz, the Korean
-    IME, trackpad gestures, and native menus directly — <strong>a well-made Mac
-    app that happens to be a terminal.</strong>
-  </p>
+  <p className="tagline">No cross-platform compromises. Damson uses ProMotion 120&nbsp;Hz, the Korean IME, trackpad gestures, and native menus directly — <strong>a well-made Mac app that happens to be a terminal.</strong></p>
   <div className="damson-cta">
     <a className="primary" href="https://github.com/hulryung/damson/releases/latest/download/Damson.dmg">↓ Download for macOS</a>
-    <a className="secondary" href="/getting-started">Get started →</a>
+    <a className="secondary" href="/manual" lang="ko">사용 설명서 →</a>
   </div>
   <small>Free &amp; open source · Notarized by Apple · Automatic updates built in</small>
 </section>
@@ -38,10 +34,7 @@ import { Cards } from 'nextra/components'
       <div><span className="p">➜ ~/dev</span> <span className="cursor">▍</span></div>
     </div>
   </div>
-  <p className="damson-term-caption">
-    120 Hz per-pixel scrolling, Korean input without the vanishing first jamo,
-    and full-width symbols that never overlap — rendered entirely on the GPU.
-  </p>
+  <p className="damson-term-caption">120 Hz per-pixel scrolling, Korean input without the vanishing first jamo, and full-width symbols that never overlap — rendered entirely on the GPU.</p>
 </section>
 
 <section className="damson-features">
@@ -67,27 +60,17 @@ import { Cards } from 'nextra/components'
       <h3>🛠 Scriptable from the CLI</h3>
       <p>damson-cli drives tabs, panes, input, and layout over a local socket — automate your terminal, or let an AI agent do it.</p>
     </a>
-    <a className="damson-card" href="/orchard">
+    <a className="damson-card" href="/manual/agents">
       <h3>🤖 Built for AI agents</h3>
-      <p>Run Claude Code and friends across panes with rock-solid rendering under fast output — or orchestrate fleets of them with Orchard.</p>
+      <p>Run agents in grouped tabs with the bundled damson-crew. Execute dependency-based workflows with validation, retries, and resumable state.</p>
     </a>
   </div>
 </section>
 
 <section className="damson-why">
   <h2>Why Damson exists</h2>
-  <p>
-    There are plenty of good terminals, but most are cross-platform apps. Built
-    on the lowest common denominator of Linux, Windows, and macOS, they always
-    feel slightly off on a Mac: trackpad momentum stutters, the first letter
-    vanishes when you start typing Korean, and menus don't behave like the rest
-    of your apps.
-  </p>
-  <p>
-    Damson starts from the opposite end: <strong>it will never support any
-    platform other than macOS.</strong> The goal isn't “surprisingly smooth for
-    a terminal.” It's a terminal you'd point to as a well-made Mac app.
-  </p>
+  <p>There are plenty of good terminals, but most are cross-platform apps. Built on the lowest common denominator of Linux, Windows, and macOS, they always feel slightly off on a Mac: trackpad momentum stutters, the first letter vanishes when you start typing Korean, and menus don't behave like the rest of your apps.</p>
+  <p>Damson starts from the opposite end: <strong>it will never support any platform other than macOS.</strong> The goal isn't “surprisingly smooth for a terminal.” It's a terminal you'd point to as a well-made Mac app.</p>
 </section>
 
 <section className="damson-docs">
@@ -98,7 +81,8 @@ import { Cards } from 'nextra/components'
     <Cards.Card title="What Makes It Different" href="/features" arrow />
     <Cards.Card title="Preset Layouts" href="/preset-layouts" arrow />
     <Cards.Card title="Symbol & CJK Width" href="/glyph-width" arrow />
-    <Cards.Card title="Orchard — multi-agent orchestration" href="/orchard" arrow />
+    <Cards.Card title="사용 설명서 — Korean manual" href="/manual" arrow />
+    <Cards.Card title="Agent workflows & game projects" href="/manual/workflows" arrow />
   </Cards>
 </section>
 

@@ -17,7 +17,9 @@ export default async function Page(props) {
   const { default: MDXContent, toc, metadata } = result
   return (
     <Wrapper toc={toc} metadata={metadata}>
-      <MDXContent {...props} params={params} />
+      <div lang={params.mdxPath?.[0] === 'manual' ? 'ko' : 'en'}>
+        <MDXContent {...props} params={params} />
+      </div>
     </Wrapper>
   )
 }

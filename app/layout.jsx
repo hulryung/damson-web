@@ -14,6 +14,7 @@ export const metadata = {
   description:
     'Damson is a GPU-accelerated terminal written in Swift, built exclusively for macOS. Safari-smooth scrolling, flawless Korean input, and a native Mac feel — a well-made Mac app that happens to be a terminal.',
   applicationName: 'Damson',
+  icons: { icon: '/logo.png' },
   appleWebApp: { title: 'Damson' },
   openGraph: {
     type: 'website',
@@ -45,6 +46,7 @@ const navbar = (
     logo={logo}
     projectLink="https://github.com/hulryung/damson"
   >
+    <a href="/manual" lang="ko" style={{ whiteSpace: 'nowrap', fontWeight: 600 }}>사용 설명서</a>
     <a
       href="https://github.com/hulryung/damson/releases/latest/download/Damson.dmg"
       style={{

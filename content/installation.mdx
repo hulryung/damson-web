@@ -7,7 +7,7 @@ import { Callout, Steps, Tabs } from 'nextra/components'
 
 # Installation
 
-Damson runs on **macOS 13 Ventura or later** (Apple Silicon or Intel). Most
+Damson runs on **macOS 13 Ventura or later** — check the release notes for the architectures included in each build. Most
 people should just grab the signed release; building from source is for
 contributors and the curious.
 
@@ -35,26 +35,26 @@ Open the `.dmg` and drop **Damson.app** into your `Applications` folder.
 Open Damson from Launchpad or Spotlight. It's Developer ID signed and notarized
 by Apple, so Gatekeeper lets it through without a fuss.
 
-### Stay up to date automatically
+### Choose how to check for updates
 
-From then on the app keeps itself current with Sparkle. You can also trigger a
-check anytime from **Settings → Advanced → Check for Updates**.
+Automatic update checks are off by default. Enable **Settings → Advanced →
+Automatic Updates** to check in the background, or use **Check for Updates…** manually.
 
 </Steps>
 
 <Callout type="info">
-  Damson is in active beta and ships frequent updates. Automatic updates mean
-  you'll always be on the latest polish without re-downloading anything.
+  App updates also update the bundled CLIs. Separately installed agent plugins
+  need to be updated independently.
 </Callout>
 
 ## (Optional) Install the `damson-cli`
 
 Damson ships a small command-line client, `damson-cli`, that drives a running
 instance — handy for scripts and AI orchestration. It lives inside the app
-bundle; symlink it onto your `PATH`:
+bundle; add its directory to your current shell’s `PATH`:
 
 ```bash
-ln -s "/Applications/Damson.app/Contents/Resources/damson-cli" /usr/local/bin/damson-cli
+export PATH="/Applications/Damson.app/Contents/Resources:$PATH"
 damson-cli --help
 ```
 

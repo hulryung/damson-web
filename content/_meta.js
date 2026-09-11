@@ -10,6 +10,7 @@ export default {
       timestamp: false
     }
   },
+  manual: '사용 설명서 (한국어)',
   installation: 'Installation',
   'getting-started': 'Getting Started',
   '-- features': {

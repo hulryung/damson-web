@@ -255,3 +255,10 @@ a.damson-card:hover {
 /* The _meta theme.sidebar flag is inert in nextra-theme-docs 4.6.1, so scope the
    landing's sidebar-free layout via :has() — only pages containing .damson-landing. */
 body:has(.damson-landing) aside.nextra-sidebar { display: none; }
+
+/* Keep the manual entry and download accessible on narrow screens. */
+@media (max-width: 600px) {
+  .nextra-nav-container a:has(svg[aria-label="Project repository"]) { display: none; }
+  .nextra-nav-container a[aria-label="Home page"] { flex-shrink: 0; }
+}
+[lang="ko"] { word-break: keep-all; overflow-wrap: anywhere; }

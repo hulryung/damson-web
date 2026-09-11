@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "name": "hello",
+  "maxParallel": 1,
+  "tasks": [
+    {
+      "id": "write",
+      "cwd": ".",
+      "command": [
+        "/bin/sh",
+        "-c",
+        "printf 'Hello from Damson\\n' > greeting.txt"
+      ],
+      "verify": [
+        [
+          "/usr/bin/grep",
+          "-qx",
+          "Hello from Damson",
+          "greeting.txt"
+        ]
+      ],
+      "outputs": [
+        "greeting.txt"
+      ],
+      "timeoutSeconds": 30
+    }
+  ]
+}
