@@ -258,7 +258,7 @@ body:has(.damson-landing) aside.nextra-sidebar { display: none; }
 
 /* Keep the manual entry and download accessible on narrow screens. */
 @media (max-width: 600px) {
-  .nextra-nav-container a:has(svg[aria-label="Project repository"]) { display: none; }
-  .nextra-nav-container a[aria-label="Home page"] { flex-shrink: 0; }
+  .nextra-navbar a:has(svg[aria-label="Project repository"]) { display: none; }
+  .nextra-navbar a[aria-label="Home page"] { flex-shrink: 0; }
 }
 [lang="ko"] { word-break: keep-all; overflow-wrap: anywhere; }
