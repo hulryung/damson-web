@@ -2,6 +2,7 @@ import nextra from 'nextra'
 
 const withNextra = nextra({
   defaultShowCopyCode: true,
+  unstable_shouldAddLocaleToLinks: true,
   search: {
     codeblocks: false
   }

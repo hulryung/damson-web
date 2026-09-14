@@ -1,4 +1,4 @@
-import { Footer, Layout, Navbar } from 'nextra-theme-docs'
+import { Footer, Layout, Navbar, LastUpdated } from 'nextra-theme-docs'
 import { Head, Search } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import { notFound } from 'next/navigation'
@@ -17,14 +17,6 @@ export async function generateMetadata({ params }) {
     openGraph: { type: 'website', siteName: 'Damson', title, description, locale: ko ? 'ko_KR' : 'en_US', images: ['/og.png'] },
     twitter: { card: 'summary_large_image', title, description, images: ['/og.png'] } }
 }
-// Nextra's locale page maps contain paths relative to the locale root.
-function localizePageMap(items, lang) {
-  return items.map(item => ({
-    ...item,
-    ...(item.route ? { route: `/${lang}${item.route === '/' ? '' : item.route}` } : {}),
-    ...(item.children ? { children: localizePageMap(item.children, lang) } : {})
-  }))
-}
 export default async function RootLayout({ children, params }) {
   const { lang } = await params
   if (!['en','ko'].includes(lang)) notFound()
@@ -37,8 +29,9 @@ export default async function RootLayout({ children, params }) {
   </Navbar>
   const footer = <Footer><span>MIT {new Date().getFullYear()} © <a href="https://github.com/hulryung/damson">Damson</a> · {ko ? 'Mac을 위해 만든 터미널.' : 'The terminal built only for macOS.'}</span></Footer>
   return <html lang={lang} dir="ltr" suppressHydrationWarning><Head color={{ hue:270, saturation:90 }} /><body>
-    <Layout navbar={navbar} footer={footer} pageMap={localizePageMap(await getPageMap(`/${lang}`), lang)}
+    <Layout navbar={navbar} footer={footer} pageMap={await getPageMap(`/${lang}`)}
       docsRepositoryBase="https://github.com/hulryung/damson-web/tree/main"
+      lastUpdated={<LastUpdated locale={lang}>{ko ? '최종 수정일' : 'Last updated on'}</LastUpdated>}
       editLink={ko ? 'GitHub에서 이 문서 수정' : 'Edit this page on GitHub'}
       feedback={{ content: ko ? '의견 보내기' : 'Give us feedback' }}
       themeSwitch={ko ? { dark:'어두운 테마', light:'밝은 테마', system:'시스템 설정' } : undefined}
