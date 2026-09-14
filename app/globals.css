@@ -262,3 +262,10 @@ body:has(.damson-landing) aside.nextra-sidebar { display: none; }
   .nextra-navbar a[aria-label="Home page"] { flex-shrink: 0; }
 }
 [lang="ko"] { word-break: keep-all; overflow-wrap: anywhere; }
+
+.nav-manual,.language-switch { white-space:nowrap; font-weight:600; }
+.nav-download { white-space:nowrap; font-weight:600; padding:.35rem .85rem; border-radius:.5rem; background:#7c3aed; color:white; }
+.damson-promo { display:block; width:100%; border-radius:20px; box-shadow:0 20px 80px #7c3aed20; }
+@media (max-width:520px) { .nav-manual { display:none; } .nav-download { padding:.3rem .55rem; } }
+@media (prefers-reduced-motion:reduce) { .promo-motion { display:none; } }
+@media (prefers-reduced-motion:no-preference) { .promo-still { display:none; } }

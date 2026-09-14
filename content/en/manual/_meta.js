@@ -1,0 +1,1 @@
+export default { index:'User Manual', installation:'Installation and Setup', terminal:'Terminal and Settings', cli:'CLI Control', agents:'Running Agents', workflows:'Workflows and Game Projects', troubleshooting:'Troubleshooting', 'computer-control':'Desktop Control' }

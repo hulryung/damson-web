@@ -1,0 +1,46 @@
+---
+title: Installation and setup
+description: Install the app, connect its CLIs and prepare a coding agent.
+---
+
+# Installation and setup
+
+## Install the app
+
+1. Download [Damson.dmg](https://github.com/hulryung/damson/releases/latest/download/Damson.dmg) on macOS 13 Ventura or later. Check supported architectures on the [release page](https://github.com/hulryung/damson/releases/latest).
+2. Drag **Damson.app** to **Applications**.
+3. Launch it from Applications or Spotlight.
+4. Enter `pwd` in the terminal and press Return to check the shell.
+
+## Updates
+
+Use **Settings → Advanced → Check for Updates…** to check manually. **Automatic Updates** enables background checks; it is off by default.
+
+Update the app and bundled CLIs together. Prefer symlinks to separate copies, so the command always follows the installed app. Agent plugins are updated separately.
+
+## CLI setup
+
+Use **Settings → Agents → Setup** to link the CLIs and install the agent skill. Alternatively, inspect the bundled tools directly:
+
+```sh
+/Applications/Damson.app/Contents/Resources/damson-cli --help
+/Applications/Damson.app/Contents/Resources/damson-crew --help
+/Applications/Damson.app/Contents/Resources/damson-computer --help
+```
+
+To use short command names in the current shell:
+
+```sh
+export PATH="/Applications/Damson.app/Contents/Resources:$PATH"
+damson-cli --list-instances
+```
+
+Add the export to `~/.zshrc` for later shells, or use the setup screen's symlinks. Adjust paths if the app is installed elsewhere.
+
+## Prepare a coding agent
+
+Damson manages agent sessions; it does not install or sign in to the agent for you. First run your chosen coding agent in a normal terminal and complete its setup.
+
+Choose the default command in **Settings → Agents → Command**. Claude's **Skip permission prompts** is enabled by default. Turn it off if you want to review its approval requests for file changes and commands.
+
+Next: [Terminal and settings](/en/manual/terminal) · [Running agents](/en/manual/agents)

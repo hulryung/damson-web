@@ -1,0 +1,50 @@
+---
+title: Terminal and settings
+description: Tabs, splits, input, search and session preservation.
+---
+
+# Terminal and settings
+
+## Tabs and split panes
+
+Tabs separate tasks; panes divide a tab. Keep an editor, development server and tests in separate panes.
+
+| Action | Default shortcut |
+| --- | --- |
+| New tab | `⌘T` |
+| Split side by side | `⌘D` |
+| Split top and bottom | `⌘⇧D` |
+| Next / previous tab | `⌘⇧]` / `⌘⇧[` |
+| Focus adjacent pane | `⌘⌥` + arrow |
+| Search | `⌘F` |
+| Settings | `⌘,` |
+
+If you remapped keys, the current menus and **Settings → Keys** take precedence. See [Preset layouts](/en/preset-layouts) and [Tabs and panes](/en/tabs-and-panes).
+
+## Output and input
+
+Scroll through output with the trackpad and search with `⌘F`. Unicode input uses the macOS input method. If glyph widths look wrong, check [Symbol and CJK width](/en/glyph-width).
+
+With shell integration, navigate between prompts and copy the last command's output. See [Shell integration](/en/shell-integration) for requirements.
+
+## Settings sections
+
+| Section | Controls |
+| --- | --- |
+| Appearance | Fonts, themes and text rendering |
+| Window | Windows, tabs and pane behavior |
+| Effects | Visual effects |
+| Terminal | Scrollback, cursor, input and sessions |
+| Keys | Keyboard shortcuts |
+| Agents | Command, approvals, notifications, worktrees and setup |
+| Advanced | Automatic and manual update checks |
+
+## Preserve processes across a supported restart
+
+Enable session preservation in **Settings → Terminal → Sessions**; it is off by default. During a supported **Restart Damson**, update installation, or **Keep Sessions & Quit**, damson-keeper holds the terminal processes until the next app launch.
+
+Ordinary **Quit** also ends running programs. Restoring the screen and scrollback does not mean the previous process survived.
+
+Preservation currently targets compact tabs. tmux panes and `tmux -CC` clients are excluded. It does not preserve work through app crashes or a macOS reboot. If the app does not reclaim sessions within 15 minutes, the keeper closes them.
+
+Next: [Terminal control with the CLI](/en/manual/cli)

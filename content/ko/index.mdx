@@ -1,0 +1,48 @@
+---
+title: Mac을 위해 만든 터미널
+description: 부드러운 스크롤, 정확한 한글 입력, 분할 화면과 AI 작업 관리. Swift와 Metal로 만든 macOS 전용 터미널 Damson.
+---
+
+import { Cards } from 'nextra/components'
+
+<div className="damson-landing">
+<section className="damson-hero">
+  <span className="damson-badge">Swift + Metal · macOS 전용</span>
+  <h1>터미널 하나로,<br />함께 만드는 흐름.</h1>
+  <p>매일 열어 두는 작업 공간을 더 편안하게.<br />부드러운 스크롤, 한글 입력, 분할 화면과 AI 작업을 Mac답게.</p>
+  <div className="damson-cta">
+    <a className="primary" href="https://github.com/hulryung/damson/releases/latest/download/Damson.dmg">↓ Mac용 다운로드</a>
+    <a className="secondary" href="/ko/manual">사용 설명서 →</a>
+  </div>
+  <small>무료·오픈 소스 · Apple 공증 · 자동 업데이트 지원</small>
+</section>
+<section className="damson-termwrap">
+  <video className="damson-promo promo-motion" autoPlay muted loop playsInline controls preload="metadata" poster="/media/damson-promo-ko-poster.png" aria-label="실제 Damson 터미널과 분할 작업 공간을 보여주는 4.8초 소개 영상"><source src="/media/damson-promo-ko.mp4" type="video/mp4" /></video>
+  <img className="damson-promo promo-still" src="/media/damson-promo-ko-poster.png" alt="한글과 이모지를 표시하는 실제 Damson 터미널" />
+  <p className="damson-term-caption">실제 앱 화면으로 보는 4.8초. 작업은 나누고, 맥락은 한눈에.</p>
+</section>
+<section className="damson-features">
+  <h2>매일 쓰면 느껴지는 차이</h2>
+  <div className="damson-grid">
+    <a className="damson-card" href="/ko/features/smooth-scrolling"><h3>부드러운 스크롤</h3><p>지원 화면에서 최대 120Hz. 픽셀 단위 이동과 관성으로 이전 출력을 자연스럽게 탐색합니다.</p></a>
+    <a className="damson-card" href="/ko/features/korean-input"><h3>한글 입력에 집중</h3><p>첫 자모와 조합 중인 글자를 macOS 입력기와 함께 처리하고, 한글과 기호의 폭을 맞춥니다.</p></a>
+    <a className="damson-card" href="/ko/features/gpu-rendering"><h3>Metal로 그리는 화면</h3><p>풍부한 색상, 합자, 두 칸 문자와 컬러 이모지. CoreText와 GPU로 텍스트를 표시합니다.</p></a>
+    <a className="damson-card" href="/ko/tabs-and-panes"><h3>탭·분할·화면 구성</h3><p>여러 작업을 나란히 보고, 단축키와 프리셋으로 익숙한 작업 공간을 빠르게 만드세요.</p></a>
+    <a className="damson-card" href="/ko/manual/agents"><h3>AI 작업을 한곳에서</h3><p>에이전트를 그룹으로 실행하고 작업 트리를 분리합니다. 의존성과 검증을 연결해 결과를 확인하세요.</p></a>
+    <a className="damson-card" href="/ko/manual/computer-control"><h3>데스크톱 제어</h3><p>Damson Computer로 앱 화면을 살펴보고 입력과 캡처를 실행합니다. 사용자 입력 시 제어가 멈춥니다.</p></a>
+  </div>
+</section>
+<section className="damson-why"><h2>Mac에 집중한 이유</h2><p>Damson은 여러 운영체제에 맞추기보다 Mac에서 매일 쓰기 좋은 터미널을 목표로 합니다. Swift, Metal, CoreText와 macOS의 창·입력 시스템을 직접 사용합니다.</p><p>코드를 쓰고, 에이전트를 지켜보고, 결과를 검증하는 시간을 하나의 작업 공간에 담으세요.</p></section>
+<section className="damson-docs">
+<h2>시작해 보세요</h2>
+
+<Cards>
+  <Cards.Card title="설치" href="/ko/installation" arrow />
+  <Cards.Card title="빠른 시작" href="/ko/getting-started" arrow />
+  <Cards.Card title="사용 설명서" href="/ko/manual" arrow />
+  <Cards.Card title="워크플로와 게임 제작" href="/ko/manual/workflows" arrow />
+</Cards>
+
+</section>
+<section className="damson-final"><h2>멋진 결과물을 만들고 공유하세요.</h2><p>무료 오픈 소스 Mac 터미널, Damson에서 시작하세요.</p><div className="damson-cta"><a className="primary" href="https://github.com/hulryung/damson/releases/latest/download/Damson.dmg">Damson 다운로드</a><a className="secondary" href="https://github.com/hulryung/damson">GitHub에서 보기 →</a></div></section>
+</div>

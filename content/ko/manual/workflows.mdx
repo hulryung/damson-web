@@ -1,0 +1,92 @@
+---
+title: 워크플로와 게임 제작
+description: 검증 가능한 DAG 작업 계획, 실행·재개, 실패 처리와 게임 제작 단계.
+---
+
+# 워크플로와 게임 제작
+
+관리형 워크플로는 유한한 명령들을 의존성 순서로 실행합니다. 독립 작업은 병렬로 실행하고, 선행 작업이 성공한 뒤 통합 작업을 시작합니다. 각 작업은 **명령 종료 코드 0 → 검증 명령 통과 → 필수 출력 존재 확인**을 모두 만족해야 성공합니다.
+
+## 에이전트 없이 먼저 동작 확인하기
+
+다음 예제는 추가 에이전트나 Node 설치 없이 macOS 기본 명령으로 파일을 생성하고 검증합니다. Damson 앱을 열고 CLI PATH를 설정한 후 새 연습 폴더에서 실행하세요.
+
+```sh
+mkdir -p ~/damson-workflow-demo
+cd ~/damson-workflow-demo
+curl -fL https://damson.app/examples/hello-workflow.json -o workflow.json
+damson-crew workflow validate --plan workflow.json
+damson-crew workflow run --plan workflow.json --state .crew/run-1
+damson-crew workflow status --state .crew/run-1
+cat greeting.txt
+```
+
+[예제 JSON 다운로드](/examples/hello-workflow.json). 결과는 `Hello from Damson`입니다. `validate`는 앱을 열거나 작업을 실행하지 않고 계획만 검사합니다.
+
+```json
+{
+  "version": 1,
+  "name": "hello",
+  "maxParallel": 1,
+  "tasks": [
+    {
+      "id": "write",
+      "cwd": ".",
+      "command": ["/bin/sh", "-c", "printf 'Hello from Damson\n' > greeting.txt"],
+      "verify": [["/usr/bin/grep", "-qx", "Hello from Damson", "greeting.txt"]],
+      "outputs": ["greeting.txt"],
+      "timeoutSeconds": 30
+    }
+  ]
+}
+```
+
+## 게임 제작 계획 세우기
+
+게임은 다음처럼 나눌 수 있습니다.
+
+| 단계 | 책임 | 시작 조건 | 확인할 결과 |
+| --- | --- | --- | --- |
+| engine | 게임 규칙·상태·점수 계산 | 인터페이스 계약 준비 | 엔진 코드와 규칙 테스트 |
+| interface | 화면·키보드 입력·렌더링 | 인터페이스 계약 준비 | 화면 코드와 구문 검사 |
+| integrate | 엔진과 화면 연결 | engine, interface 성공 | 통합 테스트 |
+| play check | 브라우저에서 실제 조작 | 통합 완료 | 시작·이동·충돌·재시작 동작 |
+
+먼저 프로젝트 폴더와 `CONTRACT.md`를 만드세요. 계약에는 엔진의 export 함수, 상태 형식, 입력 방식, 각 작업이 수정할 파일을 적습니다. 같은 파일을 동시에 수정하지 않도록 책임을 나눕니다.
+
+[공식 게임 계획 예제](https://github.com/hulryung/damson/blob/v0.8.2/plugins/damson-orchestration/skills/damson-orchestration/references/workflows.md)를 `workflow.json`으로 준비하세요. 이 예제는 Node와 로그인된 Claude Code, 미리 만든 `game` 폴더 및 계약 파일이 필요합니다. prompt 작업은 기본적으로 Claude print 모드를 사용합니다.
+
+```sh
+damson-crew workflow validate --plan workflow.json
+damson-crew workflow run --plan workflow.json --state .crew/game-1
+damson-crew workflow status --state .crew/game-1
+```
+
+구문 검사는 코드가 파싱되는지만 확인합니다. 게임 규칙에는 의미 있는 단위 테스트를 추가하고, 마지막에는 브라우저에서 실제로 플레이하세요. 개발 서버처럼 끝나지 않는 명령을 선행 작업으로 넣으면 다음 단계가 시작되지 않습니다. 서버는 별도로 관리하고 확인 후 종료하세요.
+
+## 계획의 주요 필드
+
+| 필드 | 의미 |
+| --- | --- |
+| `version` | 현재 스키마는 1 |
+| `maxParallel` | 동시에 실행할 작업 수, 1–32 |
+| `id` | 고유 작업 ID |
+| `cwd` | 작업 폴더, 상대 경로는 계획 파일 위치 기준 |
+| `command` | 유한한 실행 명령의 argv 배열, 자동 셸 해석 없음 |
+| `prompt` | 명령에 전달할 요청, 생략한 command는 Claude print 사용 |
+| `dependsOn` | 먼저 성공해야 하는 작업 ID 배열 |
+| `verify` | 차례대로 실행할 검증 명령 배열, prompt 작업에는 필수 |
+| `outputs` | 존재해야 하는 출력 경로, 내용 검증은 verify로 수행 |
+| `resources` | 같은 이름을 가진 작업의 동시 실행 방지, 해당 워크플로 내부에 적용 |
+| `maxAttempts` | 최대 시도 횟수, 1–10, 기본 1 |
+| `timeoutSeconds` | 명령과 검증을 합친 제한 시간, 최대 86400초, 기본 900초 |
+
+의존성은 순환할 수 없으며 잘못된 필드명도 오류로 처리됩니다. 명시적으로 Claude 명령을 지정한다면 `--print` 또는 `-p`가 필요합니다. 다른 에이전트도 종료 가능한 명령 형태로 지정할 수 있습니다.
+
+## 중단·재개와 실패 확인
+
+Ctrl-C는 coordinator를 중단하지만 worker는 계속 실행할 수 있습니다. 동일한 계획 파일과 `--state` 경로로 `run`을 다시 실행하면 완료한 작업을 반복하지 않고 상태를 이어갑니다. 기존 state에 변경한 계획을 넣으면 거부됩니다.
+
+`status`는 앱 없이도 저장된 상태를 읽습니다. 로그와 시도별 결과는 state 폴더에 남습니다. 실행 명령이 살아 있는지 불확실하다면 상태와 로그를 먼저 확인하고 새 state로 중복 실행하지 마세요. 상태에는 프롬프트와 프로젝트 맥락도 저장되므로 비공개 내용이 담긴 `.crew/`는 Git에 커밋하지 않습니다.
+
+재시도는 작업 파일을 되돌리지 않습니다. 마지막 시도까지 실패한 선행 작업은 후속 작업을 막고, 독립 작업은 계속 진행합니다. `run` 종료 코드는 전체 성공 0, 작업 실패·차단 1, 입력·운영 오류 2입니다.

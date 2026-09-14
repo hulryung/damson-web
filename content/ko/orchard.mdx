@@ -1,0 +1,12 @@
+---
+title: Orchard와 Damson 워크플로
+description: 별도 앱 구상과 현재 Damson에 포함된 작업 실행 도구의 차이.
+---
+
+# Orchard와 Damson 워크플로
+
+이전 문서는 Orchard를 Damson 엔진을 사용하는 별도 다중 에이전트 앱으로 소개했습니다. **현재 Damson 배포본에는 `damson-crew`가 직접 포함되므로 Orchard를 설치할 필요가 없습니다.** 현재 패키지는 `orchard-cli` 실행 파일을 제공하지 않습니다.
+
+에이전트 탭 그룹, 독립적인 Git 작업 트리와 작업 실행은 [여러 에이전트 실행](/ko/manual/agents)을 참고하세요. 의존성 순서, 검증, 재시도와 실행 재개는 [워크플로](/ko/manual/workflows)에 설명했습니다.
+
+다른 앱에 터미널 엔진을 넣으려면 [엔진 임베딩](/ko/embedding)을 읽으세요. `DamsonTerminal`은 재사용 가능한 Swift 패키지입니다.

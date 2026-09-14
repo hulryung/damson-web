@@ -1,0 +1,62 @@
+---
+title: 설치
+description: Damson 다운로드, 업데이트와 소스 빌드 안내.
+---
+
+import { Callout } from 'nextra/components'
+
+# 설치
+
+Damson은 **macOS 13 Ventura 이상**에서 실행됩니다. 배포 파일의 지원 아키텍처는 [릴리즈 노트](https://github.com/hulryung/damson/releases/latest)에서 확인하세요. 일반 사용자에게는 서명·공증된 배포본을 권장합니다. 소스 빌드에는 Swift 5.9 이상과 Swift Package Manager가 필요합니다.
+
+## 배포본 설치
+
+1. [Damson.dmg 다운로드](https://github.com/hulryung/damson/releases/latest/download/Damson.dmg)를 엽니다.
+2. **Damson.app**을 **응용 프로그램(Applications)** 폴더로 옮깁니다.
+3. Spotlight나 응용 프로그램 폴더에서 Damson을 실행합니다. 정식 배포본은 Developer ID로 서명하고 Apple 공증을 받습니다.
+4. **설정 → 고급(Settings → Advanced)**에서 업데이트 확인 방식을 선택합니다. 자동 확인은 기본적으로 꺼져 있으며 **Automatic Updates**로 켤 수 있습니다. **Check for Updates…**는 수동 확인입니다.
+
+앱 업데이트에는 번들 CLI도 포함됩니다. 별도로 설치한 에이전트 플러그인은 따로 갱신하세요.
+
+## CLI 준비
+
+**설정 → 에이전트 → 설치(Settings → Agents → Setup)**에서 CLI 연결과 에이전트 스킬 설치를 진행할 수 있습니다. 현재 셸에서 직접 사용할 수도 있습니다.
+
+```sh
+export PATH="/Applications/Damson.app/Contents/Resources:$PATH"
+damson-cli --help
+damson-crew --help
+damson-computer --help
+```
+
+자세한 명령은 [CLI 안내](/ko/cli)에서 확인하세요. 심볼릭 링크를 사용하면 앱 업데이트 후에도 새 CLI를 가리킵니다.
+
+## 소스에서 빌드
+
+엔진 라이브러리는 Metal·CoreText·AppKit 등 시스템 프레임워크만 사용합니다. 앱은 자동 업데이트를 위해 Sparkle을 사용합니다.
+
+```sh
+git clone https://github.com/hulryung/damson.git
+cd damson
+swift run damson
+```
+
+앱 번들을 만들려면 다음 명령을 실행합니다.
+
+```sh
+./scripts/build-app.sh
+# 결과: dist/Damson.app
+```
+
+`MARKETING_VERSION`, `BUILD_NUMBER`, `CLEAN=1` 환경 변수를 사용할 수 있습니다. 로컬 설치 스크립트는 릴리즈 구성으로 빌드하고 임시 서명한 앱을 설치합니다.
+
+```sh
+./scripts/install-local.sh
+swift test
+```
+
+<Callout type="warning">
+임시 서명은 정식 배포용 서명이 아닙니다. Sparkle 자동 업데이트에 적합하지 않으며, 데스크톱 제어 권한을 받은 helper를 임시 서명 빌드로 덮어쓰지 마세요. 배포에는 Developer ID 서명과 공증이 필요합니다.
+</Callout>
+
+테스트는 VT 파서, 터미널 격자, 제어 통신과 오케스트레이션을 검증합니다. 다음은 [빠른 시작](/ko/getting-started)입니다.

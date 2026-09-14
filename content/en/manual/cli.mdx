@@ -1,0 +1,57 @@
+---
+title: Terminal control with the CLI
+description: Address the exact terminal pane when sending input or reading output.
+---
+
+# Terminal control with the CLI
+
+Start Damson and complete [CLI setup](/en/manual/installation#cli-setup) first.
+
+## Discover the target
+
+```sh
+damson-cli --list-instances
+damson-cli list-tabs
+damson-cli list-panes
+damson-cli agents
+```
+
+Choose an app with `--pid` when multiple instances are open. Keep the stable pane ID from `agents` or `spawn`, so switching tabs does not redirect subsequent input.
+
+## Create tabs and panes
+
+```sh
+damson-cli new-tab
+damson-cli split horizontal
+damson-cli list-panes
+damson-cli spawn --cwd "$HOME/dev/my-project" --key project-shell --title Project --group demo -- /bin/zsh -l
+```
+
+Replace the project path. Retrying the same `--key` returns the existing pane instead of creating a duplicate.
+
+## Send input to a specific pane
+
+Replace `12345` and `PANE_ID` with observed identifiers. Text and Return are separate commands.
+
+```sh
+damson-cli --pid 12345 --pane PANE_ID reveal-pane
+damson-cli --pid 12345 --pane PANE_ID send-text 'pwd'
+damson-cli --pid 12345 --pane PANE_ID send-key enter
+damson-cli --pid 12345 --pane PANE_ID dump-grid
+```
+
+`dump-grid` reads the visible screen; it is not a complete execution log or proof that tests passed. A missing target pane causes an error rather than falling back to the active pane.
+
+| Command | Purpose |
+| --- | --- |
+| `switch-tab 0` | Select the first tab; indexes start at zero |
+| `focus-pane left` | Focus the left pane |
+| `resize-pane right 3` | Adjust a split divider |
+| `set-title 'Tests'` | Label the target tab |
+| `pane-info` | Inspect the target pane |
+| `watch-agents` | Stream state changes as NDJSON |
+| `group list` | List groups |
+| `group collapse demo` | Collapse a group |
+| `group close demo` | Close the group's tabs and running programs |
+
+Run the installed CLI's `--help` for all options. Exit codes are 0 for success, 1 for app-reported command failure, and 2 for transport, discovery or argument errors.

@@ -1,0 +1,29 @@
+---
+title: CLI 제어
+description: 스크립트에서 실행 중인 Damson의 탭과 분할 창을 제어합니다.
+---
+
+# CLI 제어
+
+`damson-cli`는 로컬 소켓으로 실행 중인 Damson에 명령을 보냅니다. 스크립트로 작업 공간을 구성하거나 코딩 에이전트가 터미널을 제어할 때 사용합니다.
+
+## 준비
+
+먼저 Damson 앱을 실행하세요. CLI는 앱 안에 포함되어 있습니다. **설정 → 에이전트 → 설치**에서 연결하거나 현재 셸에서 다음과 같이 사용할 수 있습니다.
+
+```sh
+export PATH="/Applications/Damson.app/Contents/Resources:$PATH"
+damson-cli --help
+```
+
+## 사용할 수 있는 작업
+
+탭·분할 창을 열고 배치와 이름을 바꾸며, 특정 창에 입력을 보내고 보이는 출력을 읽습니다. 코딩 에이전트도 같은 명령을 사용합니다.
+
+제어 통신은 `DamsonControl` 라이브러리를 기반으로 합니다. `damson-cli`는 터미널을, `damson-crew`는 작업 목록을, `damson-computer`는 다른 앱의 화면을 제어합니다.
+
+정확한 명령과 옵션은 설치된 버전의 `--help`를 기준으로 하세요.
+
+## 사용 설명서
+
+[특정 창 제어](/ko/manual/cli) · [여러 에이전트 실행](/ko/manual/agents) · [워크플로 실행](/ko/manual/workflows) · [데스크톱 제어](/ko/manual/computer-control)

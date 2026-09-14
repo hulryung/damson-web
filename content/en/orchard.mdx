@@ -1,0 +1,12 @@
+---
+title: Orchard and Damson workflows
+description: How the related Orchard concept differs from the workflow tools shipped with Damson.
+---
+
+# Orchard and Damson workflows
+
+Earlier documentation described Orchard as a separate multi-agent application built on the Damson engine. **The current Damson distribution provides its workflow tools directly through `damson-crew`; you do not need Orchard.** The current package does not ship an `orchard-cli` executable.
+
+For grouped agent tabs, isolated Git worktrees and task execution, start with [Running agents](/en/manual/agents). For dependency ordering, validation, retries and resumable runs, use [Managed workflows](/en/manual/workflows).
+
+If you are building another application on the engine, see [Embedding the engine](/en/embedding). `DamsonTerminal` remains the reusable Swift package.

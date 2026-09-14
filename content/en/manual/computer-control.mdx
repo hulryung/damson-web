@@ -1,0 +1,38 @@
+---
+title: Desktop control
+description: Set up Damson Computer and safely inspect or operate a selected macOS app.
+---
+
+# Desktop control
+
+**Damson Computer is included in v0.8.0 and later.** It is a separate helper app bundled inside Damson, with its own macOS Accessibility and Screen Recording permissions. Normal terminal use does not require these permissions.
+
+`damson-cli` controls terminal panes, `damson-crew` runs task plans, and `damson-computer` inspects or operates other macOS apps.
+
+## Set up permissions
+
+1. Open **Tools → Computer Control…** and choose **Start Helper** if needed.
+2. Choose **Set Up Permissions…**.
+3. Request Accessibility and Screen Recording separately. Complete each macOS prompt and enable **Damson Computer** in the matching settings list.
+4. If the app is missing, use **Show Helper in Finder** or **Copy Helper Path** to select the exact app in the add dialog.
+5. Restart the helper if macOS requests it, then check that both permissions are allowed.
+
+The app requests permissions and opens settings; it does not turn on the user's switches. The helper's **DC** menu also provides Stop and permission shortcuts. The panel shows the actual running helper path.
+
+## Controlled sessions
+
+```sh
+damson-computer status
+damson-computer apps
+damson-computer acquire --pid 12345 --owner playtest --ttl 60
+```
+
+Replace the PID with the observed target. Save `result.token` and pass it as `--session TOKEN` to commands such as `focus`, `windows`, `inspect`, `capture`, `press`, `click`, `type`, `key` and `scroll`. Read `--help` for arguments and coordinate units.
+
+Only one session owns desktop control. It is tied to the target PID and launch identity, expires after its TTL, and is revoked by Stop or helper restart. Release it when the task is finished.
+
+## Interrupt and verify
+
+Physical mouse or keyboard input pauses control. Resume explicitly only when ready, then acquire a new session. Agents must not resume a user interruption automatically.
+
+A `dispatched` response only means an event was sent. Check actual accessibility state, captured pixels or an independent app verifier before declaring success. Native and WebKit scrolling, input cancellation, occlusion and a game playtest were verified for the release; verify each new target application's response too.

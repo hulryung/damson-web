@@ -1,0 +1,38 @@
+---
+title: 데스크톱 제어
+description: Damson Computer의 설치, 접근성·화면 기록 권한과 안전한 제어 세션.
+---
+
+# 데스크톱 제어
+
+**Damson Computer는 v0.8.0부터 앱에 포함됩니다.** Damson 내부에 들어 있는 별도 보조 앱이며, macOS 접근성·화면 기록 권한도 이 앱에 부여합니다. 일반 터미널 사용에는 이 권한이 필요하지 않습니다.
+
+`damson-cli`는 터미널 창을, `damson-crew`는 작업 계획을, `damson-computer`는 다른 macOS 앱의 화면을 제어합니다.
+
+## 권한 설정
+
+1. **도구 → 데스크톱 제어(Tools → Computer Control…)**를 엽니다. 필요하면 **Start Helper**로 보조 앱을 실행합니다.
+2. **권한 설정(Set Up Permissions…)**을 선택합니다.
+3. 접근성과 화면 기록 권한을 각각 요청합니다. macOS 안내를 마친 뒤 해당 설정 목록에서 **Damson Computer**를 켭니다.
+4. 목록에 없다면 **Finder에서 보조 앱 보기(Show Helper in Finder)** 또는 **경로 복사(Copy Helper Path)**로 실제 앱 위치를 확인하여 추가합니다.
+5. macOS가 재시작을 요청하면 보조 앱을 다시 실행하고 두 권한의 허용 상태를 확인합니다.
+
+앱은 권한을 요청하고 설정을 열지만 허용 스위치를 대신 켜지 않습니다. 보조 앱의 **DC** 메뉴에서도 정지와 권한 바로가기를 사용할 수 있습니다. 제어판은 실제 실행 중인 보조 앱 경로를 표시합니다.
+
+## 제어 세션
+
+```sh
+damson-computer status
+damson-computer apps
+damson-computer acquire --pid 12345 --owner playtest --ttl 60
+```
+
+PID는 조회한 대상 앱의 값으로 바꿉니다. 응답의 `result.token`을 저장하고 `focus`, `windows`, `inspect`, `capture`, `press`, `click`, `type`, `key`, `scroll`에 `--session TOKEN`으로 전달합니다. 명령별 인자와 좌표 단위는 `--help`를 확인하세요.
+
+한 번에 하나의 세션만 데스크톱 제어를 소유합니다. 세션은 대상 PID와 실행 식별자에 묶이며 제한 시간이 지나거나 정지·보조 앱 재시작 시 무효화됩니다. 작업이 끝나면 해제하세요.
+
+## 중단과 결과 확인
+
+사용자가 마우스나 키보드를 사용하면 제어가 일시정지됩니다. 준비가 된 뒤 직접 재개하고 새 세션을 받아야 합니다. 에이전트가 사용자 중단을 임의로 해제해서는 안 됩니다.
+
+`dispatched`는 이벤트 전송을 뜻하며 실제 작업 성공을 보장하지 않습니다. 접근성 상태, 캡처 화면이나 별도 검증기로 결과를 확인하세요. 배포 전 네이티브·웹 스크롤, 입력 중단, 가림 차단과 게임 조작을 검증했으며, 새로운 대상 앱에서도 실제 응답을 확인해야 합니다.

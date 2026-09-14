@@ -1,0 +1,44 @@
+---
+title: Troubleshooting
+description: Resolve CLI connection, workflow, session and desktop permission problems.
+---
+
+# Troubleshooting
+
+## Command not found
+
+Use **Settings → Agents → Setup** or [CLI setup](/en/manual/installation#cli-setup). If the absolute executable path works, fix PATH rather than reinstalling the app. Check stale copies and moved app locations.
+
+## Cannot find a running Damson
+
+Open the app and run `damson-cli --list-instances`. Choose `--pid` if several instances exist. Rediscover IDs after an app or pane exits.
+
+## Agent is open but not progressing
+
+Inspect its pane for login, approval or project-trust prompts. Check that the command in **Settings → Agents** works in a normal shell. Silence alone is not progress evidence. Attention detection is Claude-specific, and `idle` does not mean the task passed.
+
+## Workflow validation fails
+
+Check field names, duplicate IDs, missing or cyclic dependencies and directories. Relative `cwd` resolves from the plan location. Prompt tasks require `verify`. See [plan fields](/en/manual/workflows#plan-fields).
+
+## A workflow fails or stops before the next task
+
+Read `damson-crew workflow status --state .crew/run-1` and the state directory logs. Distinguish command failure, verifier failure, missing outputs and timeout. A never-ending development server should not be a finite prerequisite.
+
+Resume using the original plan and state. Inspect workers before creating another run. See [resume behavior](/en/manual/workflows#resume-and-handle-failures).
+
+## Worktree cleanup is refused
+
+Check changes, untracked files, other groups/instances and ownership. Save work and finish active tasks before retrying with the original tasks file. User-owned worktrees are intentionally preserved.
+
+## Previous processes did not survive relaunch
+
+Ordinary Quit and crashes do not preserve running sessions. Check **Terminal → Sessions** and the supported shutdown path. See [session preservation](/en/manual/terminal#preserve-processes-across-a-supported-restart).
+
+## Desktop controls or permissions are missing
+
+Damson Computer is included since v0.8.0. Update older apps. Open **Tools → Computer Control… → Set Up Permissions…**, request each permission, then enable Damson Computer in the relevant macOS list. The setup window shows the actual helper path. See [desktop control](/en/manual/computer-control).
+
+## Report a problem
+
+Include app/macOS versions, reproduction steps, expected and actual behavior in [GitHub Issues](https://github.com/hulryung/damson/issues). Include commands and exit codes for CLI problems, or a sanitized plan and failed logs for workflows.

@@ -1,0 +1,88 @@
+---
+title: Workflows and game projects
+description: Dependency-based execution with explicit verification and resumable state.
+---
+
+# Workflows and game projects
+
+A managed workflow runs finite commands in dependency order. Independent tasks can run concurrently. Success requires **exit code 0, passing verification commands, and all required outputs**.
+
+## Try a workflow without an agent
+
+Open Damson and configure the CLI PATH. This example uses standard macOS commands, without Node or an agent installation.
+
+```sh
+mkdir -p ~/damson-workflow-demo
+cd ~/damson-workflow-demo
+curl -fL https://damson.app/examples/hello-workflow.json -o workflow.json
+damson-crew workflow validate --plan workflow.json
+damson-crew workflow run --plan workflow.json --state .crew/run-1
+damson-crew workflow status --state .crew/run-1
+cat greeting.txt
+```
+
+[Download the example JSON](/examples/hello-workflow.json). The output is `Hello from Damson`. `validate` checks the plan without launching the app or executing tasks.
+
+```json
+{
+  "version": 1,
+  "name": "hello",
+  "maxParallel": 1,
+  "tasks": [{
+    "id": "write",
+    "cwd": ".",
+    "command": ["/bin/sh", "-c", "printf 'Hello from Damson\n' > greeting.txt"],
+    "verify": [["/usr/bin/grep", "-qx", "Hello from Damson", "greeting.txt"]],
+    "outputs": ["greeting.txt"],
+    "timeoutSeconds": 30
+  }]
+}
+```
+
+## Plan a game project
+
+| Stage | Responsibility | Prerequisite | Evidence |
+| --- | --- | --- | --- |
+| engine | Rules, state and scoring | Interface contract | Engine and rule tests |
+| interface | UI, keyboard input and rendering | Interface contract | UI code and syntax checks |
+| integrate | Connect engine and UI | Both tasks passed | Integration tests |
+| play check | Operate the running game | Integration passed | Start, movement, collisions and restart |
+
+Create the project folder and `CONTRACT.md` first. Define exported functions, state shape, input behavior and which files each task owns. Avoid concurrent edits to the same files.
+
+Use the [game plan reference](https://github.com/hulryung/damson/blob/v0.8.2/plugins/damson-orchestration/skills/damson-orchestration/references/workflows.md) for `workflow.json`. Its example requires Node, a signed-in Claude Code, a `game` folder and the contract. Prompt tasks use Claude print mode by default.
+
+```sh
+damson-crew workflow validate --plan workflow.json
+damson-crew workflow run --plan workflow.json --state .crew/game-1
+damson-crew workflow status --state .crew/game-1
+```
+
+Syntax checks only establish that code parses. Add meaningful rule tests and play the running game. Manage long-running development servers separately; a server used as a finite prerequisite would never let the next task start.
+
+## Plan fields
+
+| Field | Meaning |
+| --- | --- |
+| `version` | Current schema: 1 |
+| `maxParallel` | Concurrent tasks, 1–32 |
+| `id` | Unique task identifier |
+| `cwd` | Working directory; relative to the plan file |
+| `command` | Finite argv array; no automatic shell parsing |
+| `prompt` | Agent request; omitted command defaults to Claude print |
+| `dependsOn` | Task IDs that must succeed first |
+| `verify` | Ordered verification argv arrays; required for prompt tasks |
+| `outputs` | Required paths; use verify to check their contents |
+| `resources` | Mutual exclusion for the same resource within this workflow |
+| `maxAttempts` | Attempt limit, 1–10; default 1 |
+| `timeoutSeconds` | Command plus verification deadline; default 900, maximum 86400 |
+
+Cycles, unknown fields and invalid dependencies are rejected. Explicit Claude commands need `--print` or `-p`. Other agents can use commands that finish with an exit status.
+
+## Resume and handle failures
+
+Ctrl-C stops the coordinator, but workers may continue. Run again with the same plan and `--state` directory to resume without repeating completed tasks. A changed plan is rejected for existing state.
+
+`status` reads saved state without the app. Logs and attempt results remain in the state directory. Check live workers and logs before starting a separate run. State can contain prompts and project context; do not commit private `.crew/` data.
+
+Retries do not roll back file changes. An exhausted prerequisite blocks dependants; independent tasks continue. Exit codes are 0 for full success, 1 for failed/blocked tasks, and 2 for input or operational errors.

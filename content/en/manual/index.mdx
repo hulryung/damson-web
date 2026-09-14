@@ -1,0 +1,38 @@
+---
+title: User manual
+description: Install Damson, use its terminal and run verified coding workflows.
+---
+
+import { Cards, Callout } from 'nextra/components'
+
+# Damson user manual
+
+Damson is a macOS terminal with tabs, split panes and bundled tools for terminal control, coding-agent tasks and desktop interaction.
+
+**Documentation baseline: v0.8.2, September 14, 2026.** Menu labels follow the app. Check [release notes](https://github.com/hulryung/damson/releases) for subsequent changes.
+
+<Cards>
+  <Cards.Card title="1. Installation and setup" href="/en/manual/installation" arrow />
+  <Cards.Card title="2. Terminal and settings" href="/en/manual/terminal" arrow />
+  <Cards.Card title="3. Terminal control with the CLI" href="/en/manual/cli" arrow />
+  <Cards.Card title="4. Running coding agents" href="/en/manual/agents" arrow />
+  <Cards.Card title="5. Workflows and game projects" href="/en/manual/workflows" arrow />
+  <Cards.Card title="6. Troubleshooting" href="/en/manual/troubleshooting" arrow />
+  <Cards.Card title="7. Desktop control" href="/en/manual/computer-control" arrow />
+</Cards>
+
+| Task | Tool | Availability |
+| --- | --- | --- |
+| Shell commands, tabs and splits | Damson.app | Included |
+| Targeted pane input and output | damson-cli | Bundled CLI |
+| Agent groups and dependent tasks | damson-crew | Bundled CLI |
+| Preserve processes during supported restarts | damson-keeper | Managed internally |
+| Inspect, capture and operate another macOS app | damson-computer | Included since v0.8.0 |
+
+Start with installation and terminal settings for everyday use. Use agent groups for interactive work, or managed workflows to connect dependencies and verification.
+
+<Callout type="info">
+Typing “build a game” into a shell does not automatically decompose the project. A coding agent and the orchestration skill plan the work; damson-crew executes the plan. Tests and actual play checks establish whether the result works.
+</Callout>
+
+See also [Getting started](/en/getting-started) and [Embedding the engine](/en/embedding).

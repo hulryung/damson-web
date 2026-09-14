@@ -1,0 +1,68 @@
+---
+title: Running coding agents
+description: Grouped agent sessions, notifications, worktrees and orchestration setup.
+---
+
+# Running coding agents
+
+`damson-crew run` starts an agent per task and groups their tabs. Use it when you want to interact with agents directly. To verify completion and start dependent tasks automatically, use [managed workflows](/en/manual/workflows).
+
+## Create a task list
+
+Save this as `tasks.json` and change paths and requests. `cwd` must already exist and `repo` must be an existing Git repository. Task names must be unique.
+
+```json
+[
+  {
+    "name": "review-api",
+    "cwd": "~/dev/api",
+    "prompt": "Review the authentication changes and report issues with verification steps."
+  },
+  {
+    "name": "fix-parser",
+    "repo": "~/dev/core",
+    "branch": "agent/fix-parser",
+    "command": ["codex"],
+    "prompt": "Reproduce the failing parser tests, fix the bug and run the tests."
+  }
+]
+```
+
+Omitting `command` uses the default agent setting. A task with `repo` runs in a separate Git worktree.
+
+## Run and observe
+
+```sh
+damson-crew run --tasks tasks.json --group refactor
+damson-crew watch --tasks tasks.json --notify --focus
+```
+
+Repeating the same task in the same group attaches to its existing tab. `--focus` reveals a pane needing attention. Ctrl-C stops the watcher without closing task tabs.
+
+**Idle detection and attention notifications currently support Claude Code.** Other tools can be launched and grouped, but do not have equivalent waiting-for-user detection. An `idle` state is not proof of a complete result.
+
+## Configure agent behavior
+
+**Settings → Agents** controls the default command, Claude approval skipping, idle/exit/stall notifications, focus behavior, worktree location and trust settings. **Setup** links the bundled CLIs and installs the skill or prompt for the selected coding agent. Agent installation and login remain separate.
+
+## Close and clean up
+
+After reviewing and saving the work, close the group. This also ends its running programs.
+
+```sh
+damson-crew close --group refactor --yes
+damson-crew close --tasks tasks.json --group refactor --remove-worktrees --yes
+```
+
+Worktrees with changes, untracked files or other active users are preserved. User-created worktrees are not deleted automatically. Resolve cleanup failures and retry with the original task list.
+
+## Use the orchestration skill
+
+For Claude Code, install the plugin:
+
+```sh
+claude plugin marketplace add hulryung/damson
+claude plugin install damson-orchestration@damson
+```
+
+Then ask the agent to use Damson orchestration to build a game, divide implementation work, run integration tests and verify the running result. The skill plans and reviews; damson-crew executes. App and plugin updates are separate. Orchard is not required.

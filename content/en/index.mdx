@@ -1,0 +1,85 @@
+---
+title: The terminal built only for macOS
+description: Damson is a GPU-accelerated terminal written in Swift, built exclusively for macOS — Safari-smooth scrolling, flawless Korean input, and a native Mac feel.
+---
+
+import { Cards } from 'nextra/components'
+
+<div className="damson-landing">
+
+<section className="damson-hero">
+  <span className="damson-badge">Native Swift · Metal renderer · macOS 13+</span>
+  <h1>The terminal built <em>only</em> for&nbsp;macOS</h1>
+  <p className="tagline">No cross-platform compromises. Damson uses ProMotion 120&nbsp;Hz, the Korean IME, trackpad gestures, and native menus directly — <strong>a well-made Mac app that happens to be a terminal.</strong></p>
+  <div className="damson-cta">
+    <a className="primary" href="https://github.com/hulryung/damson/releases/latest/download/Damson.dmg">↓ Download for macOS</a>
+    <a className="secondary" href="/en/manual">User manual →</a>
+  </div>
+  <small>Free &amp; open source · Notarized by Apple · Automatic updates built in</small>
+</section>
+
+<section className="damson-termwrap">
+  <video className="damson-promo promo-motion" autoPlay muted loop playsInline controls preload="metadata" poster="/media/damson-promo-en-poster.png" aria-label="A 4.8-second tour of actual Damson terminal and split-pane screens"><source src="/media/damson-promo-en.mp4" type="video/mp4" /></video>
+  <img className="damson-promo promo-still" src="/media/damson-promo-en-poster.png" alt="Damson native terminal with Unicode text and truecolor" />
+  <p className="damson-term-caption">One terminal. Your whole crew. Real app footage, 4.8 seconds.</p>
+</section>
+
+<section className="damson-features">
+  <h2>Why it feels different</h2>
+  <div className="damson-grid">
+    <a className="damson-card" href="/en/features/smooth-scrolling">
+      <h3>🪶 Scrolling feels like Safari</h3>
+      <p>ProMotion 120 Hz, per-pixel scrolling, momentum and rubber-banding — the same physics as scrolling a web page.</p>
+    </a>
+    <a className="damson-card" href="/en/features/korean-input">
+      <h3>Korean input just works</h3>
+      <p>Type as fast as you like — the first jamo never disappears and compositions never tangle. CJK width handled down to circled numbers.</p>
+    </a>
+    <a className="damson-card" href="/en/features/gpu-rendering">
+      <h3>⚡ The GPU draws everything</h3>
+      <p>A Metal renderer handles truecolor, styled text, double-width CJK, color emoji, ligatures, and font fallback without dropping frames.</p>
+    </a>
+    <a className="damson-card" href="/en/tabs-and-panes">
+      <h3>🧩 Tabs, panes, layouts</h3>
+      <p>Split panes with springy animations, drag panes between windows, and one-keystroke preset layouts like 20 / 60 / 20.</p>
+    </a>
+    <a className="damson-card" href="/en/cli">
+      <h3>🛠 Scriptable from the CLI</h3>
+      <p>damson-cli drives tabs, panes, input, and layout over a local socket — automate your terminal, or let an AI agent do it.</p>
+    </a>
+    <a className="damson-card" href="/en/manual/agents">
+      <h3>🤖 Built for AI agents</h3>
+      <p>Run agents in grouped tabs with the bundled damson-crew. Execute dependency-based workflows with validation, retries, and resumable state.</p>
+    </a>
+  </div>
+</section>
+
+<section className="damson-why">
+  <h2>Why Damson exists</h2>
+  <p>There are plenty of good terminals, but most are cross-platform apps. Built on the lowest common denominator of Linux, Windows, and macOS, they always feel slightly off on a Mac: trackpad momentum stutters, the first letter vanishes when you start typing Korean, and menus don't behave like the rest of your apps.</p>
+  <p>Damson starts from the opposite end: <strong>it will never support any platform other than macOS.</strong> The goal isn't “surprisingly smooth for a terminal.” It's a terminal you'd point to as a well-made Mac app.</p>
+</section>
+
+<section className="damson-docs">
+  <h2>Learn more</h2>
+  <Cards>
+    <Cards.Card title="Installation" href="/en/installation" arrow />
+    <Cards.Card title="Getting Started" href="/en/getting-started" arrow />
+    <Cards.Card title="What Makes It Different" href="/en/features" arrow />
+    <Cards.Card title="Preset Layouts" href="/en/preset-layouts" arrow />
+    <Cards.Card title="Symbol & CJK Width" href="/en/glyph-width" arrow />
+    <Cards.Card title="User manual" href="/en/manual" arrow />
+    <Cards.Card title="Agent workflows & game projects" href="/en/manual/workflows" arrow />
+  </Cards>
+</section>
+
+<section className="damson-final">
+  <h2>Give your most-stared-at window an upgrade</h2>
+  <div className="damson-cta">
+    <a className="primary" href="https://github.com/hulryung/damson/releases/latest/download/Damson.dmg">↓ Download for macOS</a>
+    <a className="secondary" href="https://github.com/hulryung/damson" target="_blank" rel="noreferrer">Star on GitHub</a>
+  </div>
+  <small>Damson is in active beta — the developer uses it daily and polishes it through dogfooding.</small>
+</section>
+
+</div>
