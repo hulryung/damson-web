@@ -269,3 +269,18 @@ body:has(.damson-landing) aside.nextra-sidebar { display: none; }
 @media (max-width:520px) { .nav-manual { display:none; } .nav-download { padding:.3rem .55rem; } }
 @media (prefers-reduced-motion:reduce) { .promo-motion { display:none; } }
 @media (prefers-reduced-motion:no-preference) { .promo-still { display:none; } }
+
+.effect-gallery { margin: 2rem 0; padding: 1.25rem; border: 1px solid #8b5cf644; border-radius: 20px; background: linear-gradient(145deg, #8b5cf610, #14b8a608); }
+.effect-options { display: flex; flex-wrap: wrap; gap: .5rem; }
+.effect-options button { border: 1px solid #8b5cf655; border-radius: 100px; padding: .45rem .8rem; font-size: .85rem; cursor: pointer; }
+.effect-options button[aria-pressed="true"] { background: #6d28d9; color: white; border-color: #6d28d9; }
+.effect-options button:focus-visible { outline: 3px solid #14b8a6; outline-offset: 3px; }
+.effect-heading { margin-top: 1.5rem; font-size: 1.5rem; }
+.effect-compare { display: flex; align-items: center; gap: .6rem; margin: 1rem 0; cursor: pointer; }
+.effect-frames { display: grid; gap: 1rem; }
+.effect-frames.comparing { grid-template-columns: 1fr 1fr; }
+.effect-frames figure { min-width: 0; margin: 0; }
+.effect-frames figcaption { font-size: .8rem; margin-bottom: .5rem; }
+.effect-frames img, .effect-frames video { width: 100%; height: auto; aspect-ratio: 1018 / 436; border-radius: 10px; background: #12131a; }
+.effect-note { font-size: .8rem; opacity: .75; line-height: 1.6; }
+@media(max-width: 700px) { .effect-frames.comparing { grid-template-columns: 1fr; } .effect-gallery { padding: .8rem; } }
